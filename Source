@@ -1096,6 +1096,65 @@ end
 local CVS = workspace.CurrentCamera.ViewportSize
 Tab:AddLabel("Your screen size: " .. tostring(CVS))
 
+local Section = Tab:AddSection({
+  Name = "Library Control"
+})
+
+Tab:AddButton({
+ Name = "Remove all Orion (Besides this)", 
+ Callback = function()
+ for _, gui in ipairs(gethui():GetDescendants()) do
+   if gui:IsA("ScreenGui") and gui.Name == "Orion" then
+gui:Destroy()
+   end
+ end
+   end    
+})
+
+Tab:AddButton({
+ Name = "Remove all DrRay",
+ Callback = function()
+ for _, gui in ipairs(game.CoreGui:GetDescendants()) do
+   if gui:IsA("ScreenGui") and gui.Name == "DrRay" then
+gui:Destroy()
+   end
+ end
+   end    
+})
+
+Tab:AddButton({
+ Name = "Remove all Pop libraries",
+ Callback = function()
+     for _, gui in ipairs(game.CoreGui:GetDescendants()) do
+       if gui:IsA("ScreenGui") and gui.Name == "OfficialUILib" then
+   gui:Destroy()
+       end
+     end
+   end    
+})
+
+Tab:AddButton({
+ Name = "Remove all Rayflied",
+ Callback = function()
+      for _, gui in ipairs(gethui():GetDescendants()) do
+         if gui:IsA("ScreenGui") and gui.Name == "Rayfield" then
+   gui:Destroy()  
+         end
+      end
+   end    
+})
+
+Tab:AddButton({
+ Name = "Remove this gui",
+ Callback = function()
+  for _, gui in ipairs(gethui():GetDescendants()) do
+     if gui:IsA("ScreenGui") and gui.Name == "OrionBudgieHub" then
+    gui:Destroy()
+     end
+  end
+   end    
+})
+
 local Tab = Window:MakeTab({
 	Name = "Game",
 	Icon = "rbxassetid://4483345998",
