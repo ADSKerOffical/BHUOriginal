@@ -1161,6 +1161,688 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 
+local Section = Tab:AddSection({
+ Name = "A"
+})
+
+Tab:AddButton({
+ Name = "Arsenal",
+ Callback = function()
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/93f86be991de0ff7d79e6328e4ceea40.lua"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Ability wars",
+ Callback = function()
+        loadstring(game:HttpGet("https://paste.ee/r/Wo5Kj"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Armwrestling simulator",
+ Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/SenhorLDS/ProjectLDSHUB/main/OfficialScript'))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Adopt me",
+ Callback = function()
+        loadstring(game:HttpGet("https://rawscripts.net/raw/Eclipse-Hub_805"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Attack if titans revolution",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/zerunquist/TekkitAotr/refs/heads/main/main"))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "B"
+})
+
+Tab:AddButton({
+ Name = "Blox fruit",
+ Callback = function()
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/39c79873624cdb9a9a7346acb3f9cc8c.lua"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Build a boat for treasure",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Yousuck780/Build-A-Boat-For-Treasure/main/Build%20A%20Boat%20For%20Treasure", true))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Brookhaven",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/REDzHUB/main/REDzHUB"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Blue lock rivals",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Youifpg/ArbixHubV1/refs/heads/main/Source.lua"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Bee swarm",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/BaconBossScript/BeeSwarmSim/main/BeeSwarmSim"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Booga booga",
+ Callback = function()
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/2c5f110f91165707959fc626b167e036.lua"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Blade ball",
+ Callback = function()
+        loadstring(game:HttpGet(" https://scriptblox.com/raw/UPD-Blade-Ball-op-autoparry-with-visualizer-8652"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Beat the robloxians",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Toilet71/Storage1/main/rbx_Script_Beat%20the%20Robloxian.lua"))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "C"
+})
+
+Tab:AddButton({
+ Name = "Combat warriors",
+ Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/tjWTPEez"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Cars RNG",
+ Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/5QRVrhsz"))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "D"
+})
+
+Tab:AddButton({
+ Name = "Doors",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/DarkDoorsKing/Doors/main/Main"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Da hood",
+ Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/cool5013/TBO/main/TBOscript'))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Driving Empire",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ToraScript/Script/main/DrivingEmpire"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Dandys world",
+ Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/Y7uh3UZf"))();
+   end    
+})
+
+Tab:AddButton({
+ Name = "Dig it",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/alyssagithub/Scripts/refs/heads/main/FrostByte/Initiate.lua"))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "E"
+})
+
+Tab:AddButton({
+ Name = "Evade",
+ Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/Unknownproooolucky/Unknown-Hub-X-Universal-Games/main/Games/Evade'))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Elements power tycoon",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/iiprixe/Ouxi/main/Elemental%20Powers%20Tycoon%20%5Bv1%5D"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Eat the world",
+ Callback = function()
+        loadstring(game:HttpGet("https://rawscripts.net/raw/Eat-the-World-Tbao-Hub-16753"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Every second you get +1 speed",
+ Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/ToraScript/Script/main/SpeedBike'))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "F"
+})
+
+Tab:AddButton({
+ Name = "Fisch",
+ Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/tPBiR5yE"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Flee the facility",
+ Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/K9ntra/Antora/main/abc.lua'))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Find the cans",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ExploiterGuy/Aqua-Hub/refs/heads/main/Find%20The%20Cans%20%5BKEYLESS%5D.txt"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Find the auras",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Cajshisjs/FindTheAura/main/Script.lua"))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "G"
+})
+
+Tab:AddButton({
+ Name = "Gym league",
+ Callback = function()
+        loadstring(game:HttpGet("https://api.luarmor.net/files/v3/loaders/2529a5f9dfddd5523ca4e22f21cceffa.lua"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "GEF",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Mongusohio/GefMadeBysederYTTv/main/GEFNOSKID", true))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Gunfight arena",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/tbao143/thaibao/main/TbaoHubGunfightArena"))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "H"
+})
+
+Tab:AddButton({
+ Name = "Hide and seek",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/tbao143/thaibao/main/TbaoHubHideandSeek"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Haze piece",
+ Callback = function()
+        loadstring(game:HttpGet("https://rawscripts.net/raw/EVENT-HAZE-PIECE-Op-script-9231"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Horror RNG",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ZhenX201/Inf-Lucks-RNG/main/lua"))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "I"
+})
+
+Tab:AddButton({
+ Name = "Infectious smile (By me)",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/SmileGUI/main/SmileHax33"))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "J"
+})
+
+Tab:AddButton({
+ Name = "Jujutsu infinite",
+ Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/xRynix/main/refs/heads/main/loader'))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Jailbreak",
+ Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/BlitzIsKing/UniversalFarm/main/Loader/Regular'))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Jujutsu shenanigans",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/OhhMyGehlee/657/main/kilo"))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "K"
+})
+
+Tab:AddButton({
+ Name = "KAT",
+ Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/KscB6AS9"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "King legacy",
+ Callback = function()
+        getgenv().CustomDistance = 10 -- For Bug Can't Swipe Distance
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ChopLoris/ArcHub/main/main.lua"))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "L"
+})
+
+Tab:AddButton({
+ Name = "Lootify",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Cheemos/PanHub/refs/heads/main/HubLoader"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Lumber tycoon 2",
+ Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/DevKron/Kron_Hub/refs/heads/main/version_1.0'))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Lost souls",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/OhhMyGehlee/LSM/refs/heads/main/MSL"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Lifting simulator",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/KrutoySuslik/Lifting-Simulator/main/-Suslik-Hub-"))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "M"
+})
+
+Tab:AddButton({
+ Name = "Murder mystery 2",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/vertex-peak/vertex/refs/heads/main/loadstring"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Mining GO",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/alyssagithub/Scripts/refs/heads/main/FrostByte/Initiate.lua"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Muscle legens",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Mimic",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Yumiara/Python/main/Main.lua"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Meme sea",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/MemeSea/main/Source.lua"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Mega hide and seek",
+ Callback = function()
+        loadstring(game:HttpGet('https://pastebin.com/raw/YnpFKL30'))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "N"
+})
+
+Tab:AddButton({
+ Name = "Ninja legends",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Lucasfin000/SpaceHub/main/spacvehubloader"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Natural disasters",
+ Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/LiverMods/Rawnder-NTDR/main/NaturalDisaster'))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "O"
+})
+
+Tab:AddButton({
+ Name = "One fruit",
+ Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/CrazyHub123/NexusHubMain/main/Main.lua'))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "P"
+})
+
+Tab:AddButton({
+ Name = "Pet simulator 99",
+ Callback = function()
+        loadstring(game:HttpGet('https://www.zaphub.xyz/Exec'))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Prison life",
+ Callback = function()
+        loadstring(game:HttpGet("https://scriptblox.com/raw/Prison-Life-Tiger-admin-v3-13501"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Pressure",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/InfernusScripts/Fire-Hub/main/Loader"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Project slayer",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/washingtontrichkid2/Newgay/main/ProjectSlayer"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Pop it trading",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Farx11122/Dupess/main/SecondDupe"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Piggy",
+ Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/xRHcjXVs", true))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "Q"
+})
+
+local Section = Tab:AddSection({
+ Name = "R"
+})
+
+Tab:AddButton({
+ Name = "Rivals",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/SkibidiCen/MainMenu/main/Code"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Raise a floppa",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ToraScript/Script/main/ShrimpGame"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Ragdoll Engine",
+ Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/n0kc/AtomicHub/main/Script.lua'))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Rock fruit",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/BaconBossScript/RockFruit/main/RockFruit"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Race clicker",
+ Callback = function()
+        loadstring(game:HttpGet(('https://raw.githubusercontent.com/Saaakai/Random-Roblox-Script/main/Race%20Clicker')))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "S"
+})
+
+Tab:AddButton({
+ Name = "Shrimp game",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ToraScript/Script/main/ShrimpGame"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Slap battles",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/DonjoScripts/Public-Scripts/refs/heads/Slap-Battles/Mastery-Glove"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Shindo life",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/IkkyyDF/ProjectNexus/main/Loader.lua"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Shoot a friends",
+ Callback = function()
+        loadstring(game:HttpGet(('https://pastefy.app/yypm98iN/raw'), true))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Swordmaster simulator",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/ByNami/dkhub/main/Script", true))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Spider",
+ Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/eDzjAAbK"))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "T"
+})
+
+Tab:AddButton({
+ Name = "Tower of hell",
+ Callback = function()
+        getgenv().ignoreGameCheck = false;
+loadstring(game:HttpGet("https://luau.tech/build"))("https://t.me/RHOSCRIPTS")
+   end    
+})
+
+Tab:AddButton({
+ Name = "The Strongest Battlegrounds",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed%20Hub%20X.lua", true))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Taxi Boss",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/FreeeScripts/FREEHub/main/Loader", true))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Treasure hunt simulator",
+ Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/cqwaxngq"))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "U"
+})
+
+Tab:AddButton({
+ Name = "Unnamed shooter",
+ Callback = function()
+        local scriptURL = 'https://raw.githubusercontent.com/Sheeshablee73/Scriptss/main/Unnamed%20Shooter.lua'
+local response = game:HttpGet(scriptURL)
+local executeScript = loadstring(response)
+   end    
+})
+
+Tab:AddButton({
+ Name = "Ultimate tower defense",
+ Callback = function()
+        loadstring(game:HttpGet("https://rawscripts.net/raw/BOUNTIES!-Ultimate-Tower-Defense-World-Hub-New-Update-16145"))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "V"
+})
+
+Tab:AddButton({
+ Name = "Void finishing",
+ Callback = function()
+        loadstring(game:HttpGet("https://pastebin.com/raw/xajBq0dk"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Vehicle legends",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/xlykor/MikeBayraktarVehicleLegends/main/VestaHubVehicleLegends"))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "W"
+})
+
+Tab:AddButton({
+ Name = "War tycoon",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/FacilityHUB/Facility-Key/refs/heads/main/War%20Tycoon%20v1.0.0.0c"))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "X"
+})
+
+local Section = Tab:AddSection({
+ Name = "Y"
+})
+
+Tab:AddButton({
+ Name = "Yba",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/zakater5/LuaRepo/main/YBA/MainGui.lua"))()
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "Z"
+})
+
+Tab:AddButton({
+ Name = "Zombie uprising",
+ Callback = function()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/Unknownproooolucky/Unknown-Hub-X-Universal-Games/main/Games/Zombie-Uprising'))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Zombie attack",
+ Callback = function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/dqtixz/Zombie-Attack-Remake/main/Projeto%20LKA"))()
+   end    
+})
+
 local Tab = Window:MakeTab({
 	Name = "Other",
 	Icon = "rbxassetid://4483345998",
