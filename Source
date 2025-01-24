@@ -19,6 +19,8 @@ local information = game:GetService("HttpService"):JSONDecode(game:HttpGet("http
 task.wait(0.1)
 local api = loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/API/refs/heads/main/Api.lua"))()
 task.wait(0.1)
+local api2 = loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/API2/refs/heads/main/Source"))()
+task.wait(0.1)
 local information2 = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://ipinfo.io/json"))
 task.wait(0.1)
 
@@ -1095,6 +1097,118 @@ end
 
 local CVS = workspace.CurrentCamera.ViewportSize
 Tab:AddLabel("Your screen size: " .. tostring(CVS))
+
+local Section = Tab:AddSection({
+ Name = "Players Doxing \n You can use the first three functions even if the player is not on the server"
+})
+
+Tab:AddTextbox({
+ Name = "Get all badges count of player",
+ Default = "Id",
+ TextDisappear = true,
+ Callback = function(Value)
+OrionLib:MakeNotification({
+ Name = "Budgie Hub",
+ Content = '<p><font color="rgb(255, 255, 0)">The function may take a long time if the player has a lot of badges</font></p>',
+ Image = "rbxassetid://4483345998",
+ Time = 7
+})
+  coroutine.wrap(function()
+local badges = api2.Players:GetPlayerBadgeCountFromId(Value)
+local plr = api2.Players:GetPlayerNameByIdAsync(Value)
+  if badges == nil or plr == nil then
+OrionLib:MakeNotification({
+ Name = "Budgie Hub",
+ Content = '<p><font color="rgb(255, 0, 0)">Invalid user id. Function terminated</font></p>',
+ Image = "rbxassetid://4483345998",
+ Time = 5
+})
+    return 
+  end
+OrionLib:MakeNotification({
+	Name = "Budgie Hub",
+	Content = "Player " .. plr .. " Has " .. badges .. " Badges",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+   end)()
+ end   
+})
+
+Tab:AddTextbox({
+ Name = "Get number of friends player",
+ Default = "Id",
+ TextDisappear = true,
+ Callback = function(Value)
+local plr = api2.Players:GetPlayerNameByIdAsync(Value)
+local friends = #api2.Players:GetPlayerFriendsCountFromId(Value)
+  if friends == nil or plr == nil then
+OrionLib:MakeNotification({
+ Name = "Budgie Hub",
+ Content = '<p><font color="rgb(255, 0, 0)">Invalid user id. Function terminated</font></p>',
+ Image = "rbxassetid://4483345998",
+ Time = 5
+})
+    return 
+  end
+OrionLib:MakeNotification({
+	Name = "Budgie Hub",
+	Content = "Player " .. plr .. " Has " .. friends .. " Friends",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+ end   
+})
+
+Tab:AddTextbox({
+ Name = "Get groups the player is a member of",
+ Default = "Id",
+ TextDisappear = true,
+ Callback = function(Value)
+local groups = #api2.Players:GetUserGroupsAsync(Value)
+local plr = api2.Players:GetPlayerNameByIdAsync(Value)
+  if groups == nil or plr == nil then
+OrionLib:MakeNotification({
+ Name = "Budgie Hub",
+ Content = '<p><font color="rgb(255, 0, 0)">Invalid user id. Function terminated</font></p>',
+ Image = "rbxassetid://4483345998",
+ Time = 5
+})
+    return 
+  end
+OrionLib:MakeNotification({
+	Name = "Budgie Hub",
+	Content = " Player " .. plr .. " Consists of " .. groups .. " Groups",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+ end   
+})
+
+Tab:AddTextbox({
+ Name = "Get player user id",
+ Default = "",
+ TextDisappear = true,
+ Callback = function(Value)
+local player = api2.Players:GetPlayerByLowerName(Value)
+    if player then
+OrionLib:MakeNotification({
+	Name = "Budgie Hub",
+	Content = "Player " .. player.Name .. " Has id: " .. player.UserId,
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+setclipboard(tostring(player.UserId))
+  else
+OrionLib:MakeNotification({
+ Name = "Budgie Hub",
+ Content = "Player not found",
+ Image = "rbxassetid://4483345998",
+ Time = 5
+})
+    end
+ end   
+})
 
 local Section = Tab:AddSection({
   Name = "Library Control"
