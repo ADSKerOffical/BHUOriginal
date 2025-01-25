@@ -754,6 +754,34 @@ end
  end    
 })
 
+Tab:AddButton({
+ Name = "Remove fog",
+ Callback = function()
+        game.Lighting.FogStart = math.huge
+        game.Lighting.FogEnd = math.huge
+   end    
+})
+
+Tab:AddButton({
+ Name = "Fulbright",
+ Callback = function()
+        game.Lighting.Ambient = Color3.new(1, 1, 1)
+	    game.Lighting.Brightness = 1
+        game.Lighting.FogEnd = math.huge
+        game.Lighting.FogStart = math.huge
+        game.Lighting.TimeOfDay = "12:00:00"
+        game.Lighting.ExposureCompensation = 1
+	      game.Lighting.Changed:Connect(function()
+		     game.Lighting.Ambient = Color3.new(1, 1, 1)
+		     game.Lighting.Brightness = 1
+		     game.Lighting.FogEnd = math.huge
+		     game.Lighting.ExposureCompensation = 1
+		     game.Lighting.FogStart = math.huge
+		     game.Lighting.TimeOfDay = "12:00:00"
+	      end)
+   end    
+})
+
 local Section = Tab:AddSection({
  Name = "CoreGui Control"
 })
@@ -904,6 +932,23 @@ Tab:AddToggle({
             end
         end
     end    
+})
+
+Tab:AddButton({
+ Name = "Stun Nearest",
+ Callback = function()
+for _, humanoid in ipairs(workspace:GetDescendants()) do
+  if humanoid:IsA("Humanoid") and not game.Players:FindFirstChild(humanoid.Parent.Name) and humanoid.Parent ~= game.Players.LocalPlayer.Character then
+    humanoid.WalkSpeed = 0
+    humanoid.JumpPower = 0
+
+humanoid:GetPropertyChangedSignal("WalkSpeed"):Connect(function()
+  humanoid.WalkSpeed = 0
+  humanoid.JumpPower = 0
+end)
+  end
+end
+   end    
 })
 
 local Section = Tab:AddSection({
