@@ -658,6 +658,38 @@ end
    end    
 })
 
+Tab:AddToggle({
+ Name = "NetworkOwner bypass (by me)",
+ Default = false,
+ Callback = function(Value)
+yuipp = Value
+while yuipp and task.wait(0.25) do
+ if settings().Physics.AllowSleep == true then
+   settings().Physics.AllowSleep = false
+ end
+  
+if game.Players.LocalPlayer.SimulationRadius ~= math.huge then
+  sethiddenproperty(game.Players.LocalPlayer, 'MaximumSimulationRadius', math.huge)
+  sethiddenproperty(game.Players.LocalPlayer, 'SimulationRadius', math.huge)
+  game.Players.LocalPlayer.MaximumSimulationRadius = math.huge
+  game.Players.LocalPlayer.SimulationRadius = math.huge
+end
+  
+local plr = game.Players:GetPlayers()[math.random(1, #game.Players:GetPlayers())]
+ if plr.SimulationRadius > 0.001 then
+   for _, player in ipairs(game.Players:GetPlayers()) do
+     if player ~= game.Players.LocalPlayer then
+sethiddenproperty(player, 'MaximumSimulationRadius', 0.001)
+sethiddenproperty(player, 'SimulationRadius', 0.001)
+player.MaximumSimulationRadius = 0.001
+player.SimulationRadius = 0.001
+     end
+  end
+   end
+end
+   end
+})
+
 Tab:AddLabel("     Tools that manipulate objects:")
 
 Tab:AddButton({
@@ -1032,6 +1064,39 @@ OrionLib:MakeNotification({
 })
       end
    end    
+})
+
+Tab:AddTextbox({
+ Name = "Easy Chat bypass (by me)",
+ Default = "",
+ TextDisappear = true,
+ Callback = function(Value)
+if Value == nil or Value == "" or #Value == 0 then return end
+ local function AddSymbolToString(str, symbol)
+  local newStr = ""
+  for i = 1, #str do
+    newStr = newStr .. string.sub(str, i, i) .. symbol
+  end
+  return newStr
+end
+
+ local function AddToEnd(str1, str2)
+  return tostring(str1) .. tostring(str2)
+ end
+ 
+    if game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService then
+  game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(AddSymbolToString(Value, "<"))
+    elseif game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.LegacyChatService then
+  game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(AddToEnd(Value, " le le le le"), "All")
+  
+OrionLib:MakeNotification({
+	Name = "Budgie Hub",
+	Content = "The function does not work well on LegacyChatService",
+	Image = "rbxassetid://4483345998",
+	Time = 6
+})
+   end
+ end   
 })
 
 local Section = Tab:AddSection({
