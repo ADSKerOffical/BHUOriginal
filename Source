@@ -638,6 +638,26 @@ end
  end    
 })
 
+Tab:AddToggle({
+ Name = "Part fling aura",
+ Default = false,
+ Callback = function(Value)
+ oppj = Value
+while oppj and task.wait() do
+  if game.Players.LocalPlayer.Character then
+local parts = workspace:GetPartBoundsInRadius(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, 35)
+  for _, part in ipairs(parts) do
+    if part and part.Anchored == false and part.Parent ~= game.Players.LocalPlayer.Character and not game.Players:FindFirstChild(part.Parent.Name) then
+part.Velocity = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - part.Position).Unit * -250
+part.Massless = true
+      part.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0) 
+      end
+    end
+  end
+end   
+   end    
+})
+
 Tab:AddLabel("     Tools that manipulate objects:")
 
 Tab:AddButton({
@@ -1101,6 +1121,30 @@ Tab:AddToggle({
 togel = not Value
   game:GetService("GuiService"):SetGameplayPausedNotificationEnabled(togel)
  end    
+})
+
+local Section = Tab:AddSection({
+ Name = "Id Control"
+})
+
+Tab:AddToggle({
+ Name = "Set creator id",
+ Default = false,
+ Callback = function(Value)
+vtu = Value
+       if vtu == true then
+game.Players.LocalPlayer.UserId = game.CreatorId
+        else
+game.Players.LocalPlayer.UserId = game.Players.LocalPlayer.CharacterAppearanceId
+       end
+   end    
+})
+
+Tab:AddButton({
+ Name = "Copy creator id",
+ Callback = function()
+        setclipboard(tostring(game.CreatorId))
+   end    
 })
 
 local Section = Tab:AddSection({
@@ -2339,3 +2383,40 @@ local OrionF = gethui().Orion or nil
 gethui().Orion.Name = "OrionBudgieHub"
 OrionF = gethui().OrionBudgieHub
  end
+
+local function detectDevice()
+if (game:GetService("GuiService"):IsTenFootInterface()) then
+        return "Console"
+    elseif (game:GetService("UserInputService").TouchEnabled and not game:GetService("UserInputService").MouseEnabled) then
+        return"Mobile"
+    else
+        return "PC"
+    end
+end
+
+if not gethui():FindFirstChild("ButtonSwitch") and detectDevice() == "Mobile" then
+local Switch = cloneref(Instance.new("ScreenGui", gethui()))
+Switch.DisplayOrder = math.huge
+Switch.ClipToDeviceSafeArea = false
+Switch.Name = "ButtonSwitch"
+Switch.ResetOnSpawn = false
+
+local Button = Instance.new("TextButton", Switch)
+Button.Active = true
+Button.Draggable = true
+Button.Text = "Return gui"
+Button.Size = UDim2.new(0, 32, 0, 32)
+Button.Position = UDim2.new(0, 105, 0, -20)
+Button.BackgroundTransparency = 0.5
+Button.TextColor3 = Color3.new(1, 1, 1)
+Button.TextScaled = true
+Button.BackgroundColor3 = Color3.new(0, 0, 0)
+Button.TextSize = 12
+
+Button.MouseButton1Click:Connect(function()
+game:GetService("VirtualInputManager"):SendKeyEvent(true, "LeftControl" , false , game)
+end)
+
+local Corner = Instance.new("UICorner", Button)
+Corner.CornerRadius = UDim.new(0, 8)
+end
