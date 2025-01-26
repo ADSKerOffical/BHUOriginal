@@ -530,6 +530,7 @@ Tab:AddToggle({
  Callback = function(Value)
 yn = Value
 while yn and task.wait(0.2) do
+ if not LP.Character.HumanoidRootPart then return end
    for _, part in ipairs(workspace:GetDescendants()) do
       if part:IsA("BasePart") and not part.Anchored and part.Parent ~= LP.Character and not game.Players:GetPlayerFromCharacter(part.Parent) then
  part.Velocity = (LP.Character.HumanoidRootPart.Position - part.Position).Unit * 150
@@ -545,6 +546,7 @@ Tab:AddToggle({
  Callback = function(Value)
 yun = Value
    while yun and task.wait() do
+if not LP.Character or not LP.Character.HumanoidRootPart then return end
      for _, part in ipairs(LP.Character:GetDescendants()) do
        if part:IsA("BasePart") then
          part.CanTouch = not yun
@@ -864,6 +866,7 @@ yoo = Value
 while yoo and task.wait() do
 sethiddenproperty(LP, "SimulationRadius", 112412400000)
 sethiddenproperty(LP, "MaxSimulationRadius", 112412400000)
+  if not LP.Character.HumanoidRootPart then return end
 for i,d in pairs(game.Workspace:GetDescendants()) do
     if d.ClassName == 'Humanoid' and not game.Players:FindFirstChild(d.Parent.Name) then
         d.Health = 0
@@ -882,6 +885,7 @@ myyy = Value
 while myyy and task.wait() do
  sethiddenproperty(LP, "SimulationRadius", 112412400000)
 sethiddenproperty(LP, "MaxSimulationRadius", 112412400000)
+ if not LP.Character.HumanoidRootPart then return end
 for i,d in pairs(game.Workspace:GetDescendants()) do
     if d.ClassName == 'Humanoid' and not game.Players:FindFirstChild(d.Parent.Name) then
         d.RootPart.Velocity = (LP.Character.HumanoidRootPart.Position - d.RootPart.Position).Unit * -200
@@ -899,6 +903,7 @@ hhh = Value
    while hhh and task.wait() do
 sethiddenproperty(LP, "SimulationRadius", 112412400000)
 sethiddenproperty(LP, "MaxSimulationRadius", 112412400000)
+ if not LP.Character.HumanoidRootPart then return end
 for i, d in pairs(game.Workspace:GetDescendants()) do
     if d.ClassName == 'Humanoid' and not game.Players:FindFirstChild(d.Parent.Name) then
         d:ChangeState("FallingDown")
@@ -917,6 +922,7 @@ Tab:AddToggle({
         while hhh and task.wait() do
             sethiddenproperty(LP, "SimulationRadius", math.huge)
             sethiddenproperty(LP, "MaxSimulationRadius", math.huge)
+ if not LP.Character.HumanoidRootPart then return end
             for _, d in pairs(game.Workspace:GetDescendants()) do
                 if d:IsA('Humanoid') and not game.Players:FindFirstChild(d.Parent.Name) and d.Parent:FindFirstChild("HumanoidRootPart") then
                     local entityRootPart = d.Parent.HumanoidRootPart
