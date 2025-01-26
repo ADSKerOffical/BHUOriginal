@@ -976,6 +976,17 @@ end
 })
 
 Tab:AddButton({
+ Name = "Send empty message",
+ Callback = function()
+if game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.LegacyChatService then
+game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("　", "All")
+ else
+game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("　", "All")
+end
+   end    
+})
+
+Tab:AddButton({
  Name = "Check chat version",
  Callback = function()
 local chatver = game:GetService("TextChatService").ChatVersion
@@ -1018,6 +1029,19 @@ Tab:AddButton({
  Callback = function()
         game.Players.LocalPlayer.CameraMaxZoomDistance = math.huge
         game.Players.LocalPlayer.CameraMinZoomDistance = 0
+   end    
+})
+
+Tab:AddButton({
+ Name = "Fix camera",
+ Callback = function()
+local camera = workspace.CurrentCamera
+camera.CameraType = Enum.CameraType.Custom
+camera.FieldOfView = 70
+camera.CameraSubject = game.Players.LocalPlayer.Character.Humanoid
+game.Players.LocalPlayer.Character.Humanoid.CameraOffset = Vector3.zero
+game.Players.LocalPlayer.CameraMaxZoomDistance = math.huge
+game.Players.LocalPlayer.CameraMinZoomDistance = 0
    end    
 })
 
