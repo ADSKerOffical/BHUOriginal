@@ -2830,6 +2830,7 @@ gethui().Orion.Name = "OrionBudgieHub"
 OrionF = gethui().OrionBudgieHub
  end
 
+if not workspace:FindFirstChild("PartCheckForWhile") then
 local TeleportCheck = false
 game.Players.LocalPlayer.OnTeleport:Connect(function(State)
  if (not TeleportCheck) and queueteleport then
@@ -2837,6 +2838,7 @@ game.Players.LocalPlayer.OnTeleport:Connect(function(State)
   queueteleport('loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/BHU/refs/heads/main/Source"))()')
  end
 end)
+ end
 
 local function detectDevice()
 if (game:GetService("GuiService"):IsTenFootInterface()) then
