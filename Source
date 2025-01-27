@@ -87,9 +87,12 @@ end
 
 Tab1:AddLabel("Welcome: " .. tostring(LP.Name))
 
+local moreno = false
 Tab1:AddButton({
  Name = "Display information (I dont use webhooks)",
  Callback = function()
+  if moreno then return end
+moreno = true
 local infoText = "\n " .. "\n" ..
                  "IP: " .. information.ip .. "\n" ..
                  "Country: " .. information.country .. "\n" ..
@@ -107,7 +110,7 @@ local infoText = "\n " .. "\n" ..
                  "Proposed device: " .. tostring(syst) .. "\n" ..
                  "Exploit: " .. (identifyexecutor and identifyexecutor() or "N/A") .. "\n"
 
-Tab1:AddLabel(infoText)
+Tab1:AddParagraph("", infoText)
  end
 })
 
@@ -1390,6 +1393,10 @@ Tab:AddToggle({
 togel = not Value
   game:GetService("GuiService"):SetGameplayPausedNotificationEnabled(togel)
  end    
+})
+
+local Section = Tab:AddSection({
+ Name = "Network"
 })
 
 Tab:AddButton({
