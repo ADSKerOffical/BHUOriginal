@@ -810,16 +810,53 @@ end
 	end
 })
 
+Tab:AddButton({
+ Name = "Black hole creator tool",
+ Callback = function()
+        local tool = Instance.new("Tool")
+tool.Name = "Black hole creator"
+tool.RequiresHandle = false
+
+tool.Activated:Connect(function()
+  coroutine.wrap(function()
+local mouseh = game.Players.LocalPlayer:GetMouse().Hit
+local hole = cloneref(Instance.new("Part", workspace))
+hole.Position = mouseh.Position
+hole.Anchored = true
+hole.CanCollide = false
+hole.Shape = "Ball"
+hole.Size = Vector3.new(0.1, 0.1, 0.1)
+hole.Color = Color3.new(0, 0, 0)
+hole.Material = "Neon"
+game.Debris:AddItem(hole, 5)
+
+local partTweenn2 = game:GetService("TweenService"):Create(hole, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {
+        Size = Vector3.new(35, 35, 35)
+    })
+    partTweenn2:Play()
+  spawn(function()
+repeat task.wait()
+local parts = workspace:GetPartBoundsInRadius(hole.Position, 200)
+ for _, part in ipairs(parts) do
+   if part and part.Anchored == false and part.Parent ~= game.Players.LocalPlayer.Character and not game.Players:FindFirstChild(part.Parent.Name) then
+  part.Velocity += (hole.Position - part.Position).Unit * 250
+   end
+ end
+until not hole or hole.Size.X <= 0 or hole.Parent == nil or hole == nil
+  end)
+   end)()
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+   end    
+})
+
 Tab:AddToggle({
  Name = "NetworkOwner bypass (by me)",
  Default = false,
  Callback = function(Value)
 yuipp = Value
 while yuipp and task.wait(0.25) do
- if settings().Physics.AllowSleep == true then
-   settings().Physics.AllowSleep = false
- end
-  
 if game.Players.LocalPlayer.SimulationRadius ~= math.huge then
   sethiddenproperty(game.Players.LocalPlayer, 'MaximumSimulationRadius', math.huge)
   sethiddenproperty(game.Players.LocalPlayer, 'SimulationRadius', math.huge)
