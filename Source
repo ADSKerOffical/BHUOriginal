@@ -870,11 +870,24 @@ tool.Parent = game.Players.LocalPlayer.Backpack
 })
 
 Tab:AddToggle({
+ Name = "Xray",
+ Default = false,
+ Callback = function(Value)
+xrayen = Value
+for _, part in ipairs(workspace:GetDescendants()) do
+  if part:IsA("BasePart") and not part.Parent:FindFirstChildOfClass("Humanoid") and part.Parent ~= game.Players.LocalPlayer.Character then
+ part.LocalTransparencyModifier = xrayen and 0.6 or 0
+  end
+end
+ end
+})
+
+Tab:AddToggle({
  Name = "NetworkOwner bypass (by me)",
  Default = false,
  Callback = function(Value)
 yuipp = Value
-while yuipp and task.wait(0.25) do
+while yuipp and task.wait() do
 if game.Players.LocalPlayer.SimulationRadius ~= math.huge then
   sethiddenproperty(game.Players.LocalPlayer, 'MaximumSimulationRadius', math.huge)
   sethiddenproperty(game.Players.LocalPlayer, 'SimulationRadius', math.huge)
