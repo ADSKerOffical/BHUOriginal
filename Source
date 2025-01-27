@@ -104,6 +104,14 @@ local infoText = "\n " .. "\n" ..
 
 Tab:AddParagraph("Welcome: ", infoText)
 
+local cloneref = cloneref or function(o) return o end
+local queueteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport)
+local request = (syn and syn.request) or request or (fluxus and fluxus.request)
+local newcclosure = newcclosure or function(f) return f end
+local setclipboard = setclipboard or syn_clipboard_set or syn.write_clipboard or nil
+local setthreadidentity = setthreadidentity or syn.set_thread_identity
+local getthreadidentity = getthreadidentity or syn.get_thread_identity
+
 local Tab = Window:MakeTab({
 	Name = "Universal",
 	Icon = "rbxassetid://4483345998",
@@ -1377,6 +1385,163 @@ togel = not Value
  end    
 })
 
+Tab:AddButton({
+ Name = "Get fps count",
+ Callback = function()
+OrionLib:MakeNotification({
+	Name = "Budgie Hub",
+    Content = "Your fps: " .. tostring(game:GetService("Stats").Workspace.Heartbeat:GetValue()),
+    Image = "rbxassetid://4483345998",
+	Time = 5
+})
+   end    
+})
+
+Tab:AddButton({
+ Name = "Get ping count",
+ Callback = function()
+ OrionLib:MakeNotification({
+	Name = "Budgie Hub",
+    Content = "Your ping: " .. tostring(math.floor(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue())),
+    Image = "rbxassetid://4483345998",
+	Time = 5
+})
+   end    
+})
+
+Tab:AddButton({
+ Name = "Get memory usage", 
+ Callback = function()
+        local Con = math.floor(game:GetService("Stats"):GetTotalMemoryUsageMb())
+OrionLib:MakeNotification({
+	Name = "Budgie Hub",
+	Content = "Your memory usage: " .. tostring(Con) .. "MB",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+   end 
+})
+
+Tab:AddButton({
+ Name = "Instant ReplicationLag",
+ Callback = function()
+        settings().Network.IncomingReplicationLag = 0
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "Teleport Into Places"
+})
+
+Tab:AddButton({
+ Name = "Rejoin",
+ Callback = function()
+        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId, game.Players.LocalPlayer)
+   end    
+})
+
+Tab:AddButton({
+ Name = "Server hop",
+ Callback = function()
+local Player = game.Players.LocalPlayer    
+local Http = game:GetService("HttpService")
+local TPS = game:GetService("TeleportService")
+local Api = "https://games.roblox.com/v1/games/"
+
+local _place,_id = game.PlaceId, game.JobId
+local _servers = Api.._place.."/servers/Public?sortOrder=Desc&limit=100"
+function ListServers(cursor)
+   local Raw = game:HttpGet(_servers .. ((cursor and "&cursor="..cursor) or ""))
+   return Http:JSONDecode(Raw)
+end
+
+local Next; repeat
+   local Servers = ListServers(Next)
+   for i,v in next, Servers.data do
+       if v.playing < v.maxPlayers and v.id ~= _id then
+           local s,r = pcall(TPS.TeleportToPlaceInstance,TPS,_place,v.id,Player)
+           if s then break end
+       end
+   end
+   
+   Next = Servers.nextPageCursor
+until not Next
+   end    
+})
+
+Tab:AddButton({
+    Name = "Get all places in place",
+    Callback = function()
+        local function getPlaceInfo()
+            local places_data = {}
+            local places = game:GetService("AssetService"):GetGamePlacesAsync()
+            while not places.IsFinished do
+                for _, place in ipairs(places:GetCurrentPage()) do
+                    table.insert(places_data, {
+                        Name = place.Name,
+                        PlaceId = place.PlaceId
+                    })
+                end
+                places:AdvanceToNextPageAsync()
+            end
+            return places_data
+        end
+
+        local places = getPlaceInfo()
+
+        if #places <= 1 then
+            OrionLib:MakeNotification({
+                Name = "Budgie Hub",
+                Content = "Places not found",
+                Image = "rbxassetid://4483345998",
+                Time = 4
+            })
+        elseif #places > 1 and #places <= 20 then
+            local content_string = ""
+              for _, place in ipairs(places) do
+               content_string = content_string .. "Place name: " .. place.Name .. " Place id: " .. place.PlaceId .. "\n"
+              end
+            OrionLib:MakeNotification({
+                Name = "Budgie Hub",
+                Content = content_string,
+                Image = "rbxassetid://4483345998",
+                Time = 4 + #places
+            })
+        elseif #places > 1 and #places > 20 then
+            OrionLib:MakeNotification({
+                Name = "Budgie Hub",
+                Content = "There are too many places (" .. #places .. " > 20) . Information sent to console",
+                Image = "rbxassetid://4483345998",
+                Time = 8
+            })
+            for _, place in ipairs(places) do
+                print("Place name: " .. place.Name .. " Place id: " .. place.PlaceId)
+            end
+        end
+    end
+})
+
+Tab:AddTextbox({
+ Name = "Teleport to place by id",
+ Default = "",
+ TextDisappear = true,
+ Callback = function(Value)
+  if Value == "" or Value == nil or Value <= 0 then return end
+    game:GetService("TeleportService"):Teleport(Value)
+ local function messag(text)
+local hint = Instance.new("Hint", workspace)
+hint.Text = tostring(text)
+game.Debris:AddItem(hint, 5)
+ end
+  messag("Teleport...")
+local t = game.Players.LocalPlayer.OnTeleport:Connect(function(State)
+     if State == Enum.TeleportState.Failed then
+messag("Teleport failed")
+     end
+   end)
+ end   
+})
+
 local Section = Tab:AddSection({
  Name = "Id Control"
 })
@@ -2637,6 +2802,14 @@ local OrionF = gethui().Orion or nil
 gethui().Orion.Name = "OrionBudgieHub"
 OrionF = gethui().OrionBudgieHub
  end
+
+local TeleportCheck = false
+game.Players.LocalPlayer.OnTeleport:Connect(function(State)
+ if (not TeleportCheck) and queueteleport then
+  TeleportCheck = true
+  queueteleport('loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/BHU/refs/heads/main/Source"))()')
+ end
+end)
 
 local function detectDevice()
 if (game:GetService("GuiService"):IsTenFootInterface()) then
