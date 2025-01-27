@@ -658,6 +658,158 @@ end
    end    
 })
 
+Tab:AddDropdown({
+	Name = "Fling part tools (too by me)",
+	Default = "",
+	Options = {"v1", "v2", "v3"},
+	Callback = function(Value)
+if Value == "v1" then
+local tool = Instance.new("Tool")
+tool.Name = "Fling part tool v1"
+tool.RequiresHandle = false
+
+tool.Activated:Connect(function()
+ local correct = nil
+local mouset = game.Players.LocalPlayer:GetMouse().Target
+  if mouset and mouset.Anchored == false and mouset.Parent ~= game.Players.LocalPlayer.Character and not game.Players:FindFirstChild(mouset.Parent.Name) then
+  correct = true
+ bodyvel = Instance.new("BodyVelocity", mouset)
+ bodyvel.MaxForce = Vector3.new(math.huge, math.huge, math.huge)
+ bodyvel.Velocity = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - mouset.Position).Unit * -500
+ mouset.CanCollde = false
+ mouset.CanTouch = false
+  end
+
+local Highlight = Instance.new("Highlight", mouset)
+Highlight.Adornee = mouset
+Highlight.FillTransparency = 0
+  if correct == true then
+Highlight.FillColor = Color3.fromRGB(0, 255, 0)
+Highlight.OutlineColor = Color3.fromRGB(0, 255, 0)
+ else
+local sound = Instance.new("Sound", game.Workspace)
+sound.SoundId = "rbxassetid://3779045779"
+sound.Volume = 1.5
+sound.PlaybackSpeed = 1
+sound.Looped = false
+sound:Play()
+game.Debris:AddItem(sound, 3)
+
+Highlight.FillColor = Color3.new(1, 0, 0)
+Highlight.OutlineColor = Color3.new(1, 0, 0)
+ end
+Highlight.OutlineTransparency = 0
+game.Debris:AddItem(Highlight, 5)
+
+local partTweenn2 = game:GetService("TweenService"):Create(Highlight, TweenInfo.new(1, Enum.EasingStyle.Sine), {
+        OutlineTransparency = 1,
+        FillTransparency = 1
+    })
+    partTweenn2:Play()
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+elseif Value == "v2" then
+local tool = Instance.new("Tool")
+tool.Name = "Fling part tool v2"
+tool.RequiresHandle = false
+
+tool.Activated:Connect(function()
+ local correct = nil
+local mouset = game.Players.LocalPlayer:GetMouse().Target
+  if mouset and mouset.Anchored == false and mouset.Parent ~= game.Players.LocalPlayer.Character and not game.Players:FindFirstChild(mouset.Parent.Name) then
+  correct = true
+ bodyth = Instance.new("BodyThrust", mouset)
+ bodyth.Force = Vector3.new(100000, 100000, 100000)
+     spawn(function()
+repeat task.wait()
+  bodyth.Location = mouset.Position
+  mouset.CanCollide = false
+  mouset.CanTouch = false
+until not mouset or not mouset.Parent or mouset == nil
+     end)
+  end
+
+local Highlight = Instance.new("Highlight", mouset)
+Highlight.Adornee = mouset
+Highlight.FillTransparency = 0
+  if correct == true then
+Highlight.FillColor = Color3.fromRGB(0, 255, 0)
+Highlight.OutlineColor = Color3.fromRGB(0, 255, 0)
+ else
+local sound = Instance.new("Sound", game.Workspace)
+sound.SoundId = "rbxassetid://3779045779"
+sound.Volume = 1.5
+sound.PlaybackSpeed = 1
+sound.Looped = false
+sound:Play()
+game.Debris:AddItem(sound, 3)
+
+Highlight.FillColor = Color3.new(1, 0, 0)
+Highlight.OutlineColor = Color3.new(1, 0, 0)
+ end
+Highlight.OutlineTransparency = 0
+game.Debris:AddItem(Highlight, 5)
+
+local partTweenn2 = game:GetService("TweenService"):Create(Highlight, TweenInfo.new(1, Enum.EasingStyle.Sine), {
+        OutlineTransparency = 1,
+        FillTransparency = 1
+    })
+    partTweenn2:Play()
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+elseif Value == "v3" then
+local tool = Instance.new("Tool")
+tool.Name = "Fling part tool v3"
+tool.RequiresHandle = false
+
+tool.Activated:Connect(function()
+ local correct = nil
+local mouset = game.Players.LocalPlayer:GetMouse().Target
+  if mouset and mouset.Anchored == false and mouset.Parent ~= game.Players.LocalPlayer.Character and not game.Players:FindFirstChild(mouset.Parent.Name) then
+  correct = true
+ bodyav = Instance.new("BodyAngularVelocity", mouset)
+ bodyav.AngularVelocity = Vector3.new(100, 100, 100)
+ bodyav.MaxTorque = Vector3.new(math.huge, math.huge, math.huge)
+ bodyav.P = 25
+ mouset.CanCollide = false
+ mouset.CanTouch = false
+  end
+
+local Highlight = Instance.new("Highlight", mouset)
+Highlight.Adornee = mouset
+Highlight.FillTransparency = 0
+  if correct == true then
+Highlight.FillColor = Color3.fromRGB(0, 255, 0)
+Highlight.OutlineColor = Color3.fromRGB(0, 255, 0)
+ else
+local sound = Instance.new("Sound", game.Workspace)
+sound.SoundId = "rbxassetid://3779045779"
+sound.Volume = 1.5
+sound.PlaybackSpeed = 1
+sound.Looped = false
+sound:Play()
+game.Debris:AddItem(sound, 3)
+
+Highlight.FillColor = Color3.new(1, 0, 0)
+Highlight.OutlineColor = Color3.new(1, 0, 0)
+ end
+Highlight.OutlineTransparency = 0
+game.Debris:AddItem(Highlight, 5)
+
+local partTweenn2 = game:GetService("TweenService"):Create(Highlight, TweenInfo.new(1, Enum.EasingStyle.Sine), {
+        OutlineTransparency = 1,
+        FillTransparency = 1
+    })
+    partTweenn2:Play()
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+end
+	end
+})
+
 Tab:AddToggle({
  Name = "NetworkOwner bypass (by me)",
  Default = false,
