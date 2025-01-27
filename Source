@@ -15,17 +15,14 @@ local Tab1 = Window:MakeTab({
  PremiumOnly = false
 })
 
-task.defer(function()
- spawn(function()
 local information = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://ipapi.co/json/"))
-task.wait(0.1)
+ game:GetService("RunService").RenderStepped:Wait()
 local api = loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/API/refs/heads/main/Api.lua"))()
-task.wait(0.1)
+ game:GetService("RunService").RenderStepped:Wait()
 local api2 = loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/API2/refs/heads/main/Source"))()
-task.wait(0.1)
+ game:GetService("RunService").RenderStepped:Wait()
 local information2 = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://ipinfo.io/json"))
- end)
-end)
+ game:GetService("RunService").RenderStepped:Wait()
 
 local syst = ""
 local GS = game:GetService("GuiService")
