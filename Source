@@ -1747,7 +1747,7 @@ vgh = Value
 })
 
 local Section = Tab:AddSection({
- Name = "CoreGui (open all tabs to make it work)"
+ Name = "CoreGui Control v2 (open all tabs to make it work)"
 })
 
 Tab:AddToggle({
@@ -1755,7 +1755,7 @@ Tab:AddToggle({
  Default = false,
  Callback = function(Valu)
       pcall(function()
-       game.CoreGui.RobloxGui.SettingsClippingShield.SettingsShield.MenuContainer.PageViewClipper.PageView.PageViewInnerFrame.Players.ButtonsContainer.LeaveButtonButton.Visible = Valu
+       game.CoreGui.RobloxGui.SettingsClippingShield.SettingsShield.MenuContainer.PageViewClipper.PageView.PageViewInnerFrame.Players.ButtonsContainer.LeaveButtonButton.Visible = not Valu
       end)
    end    
 })
@@ -1765,8 +1765,18 @@ Tab:AddToggle({
  Default = false,
  Callback = function(Value)
       pcall(function()
-       game:GetService("CoreGui").PurchasePrompt.Enabled = Value
+       game:GetService("CoreGui").PurchasePrompt.Enabled = not Value
       end)
+   end    
+})
+
+Tab:AddToggle({
+ Name = "Hide resume button",
+ Default = false,
+ Callback = function(Value)
+        pcall(function()
+         game.CoreGui.RobloxGui.SettingsClippingShield.SettingsShield.MenuContainer.PageViewClipper.PageView.PageViewInnerFrame.Players.ButtonsContainer.ResumeButtonButton = not Value
+        end)
    end    
 })
 
