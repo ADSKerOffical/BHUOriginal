@@ -1628,6 +1628,149 @@ Tab:AddTextbox({
 })
 
 local Section = Tab:AddSection({
+ Name = "Sky control"
+})
+
+sky = Instance.new("Sky", game.Lighting)
+
+Tab:AddTextbox({
+ Name = "Change sky id",
+ Default = "id",
+ TextDisappear = true,
+ Callback = function(Value)
+   sky.SkyboxRt = "rbxassetid://" .. tostring(Value)
+   sky.SkyboxBk = "rbxassetid://" .. tostring(Value)
+   sky.SkyboxDn = "rbxassetid://" .. tostring(Value)
+   sky.SkyboxFt = "rbxassetid://" .. tostring(Value)
+   sky.SkyboxLf = "rbxassetid://" .. tostring(Value)
+   sky.SkyboxUp = "rbxassetid://" .. tostring(Value)
+ end   
+})
+
+local stc = sky.StarCount
+Tab:AddToggle({
+ Name = "Remove celestial bodies",
+ Default = false,
+ Callback = function(Value)
+      if Value == true then
+sky.CelestialBodiesShown = false
+sky.StarCount = 0
+       else
+sky.CelestialBodiesShown = true
+sky.StarCount = stc
+      end
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "ProximityPrompt control"
+})
+
+Tab:AddToggle({
+ Name = "Enable proximity prompts",
+ Default = false,
+ Callback = function(Value)
+      while gyub and task.wait() do
+        for _, class in next, workspace:GetDescendants() do
+           if class:IsA("ProximityPrompt") then
+class.Enabled = true
+class.ClickablePrompt = true
+           end
+        end
+      end
+   end    
+})
+
+Tab:AddToggle({
+ Name = "Enable proximity prompts (hard)",
+ Default = false,
+ Callback = function(Value)
+tofle = Value
+ for i, v in next, workspace:GetDescendants() do
+   if v:IsA("ProximityPrompt") then
+    for _, v in next, getconnections(v.Changed) do
+ v:Disconnect()
+    end
+v.Enabled = true
+v.ClickablePrompt = true
+     v.Changed:Connect(function(prop)
+       if tofle == false then return end
+v.Enabled = true
+v.ClickablePrompt = true
+     end)
+   end
+ end
+ 
+ game:GetService("ProximityPromptService").Changed:Connect(function(prop)
+    if tofle == false then return end
+   if prop == "Enabled" then
+game.ProximityPromptService.Enabled = true
+   elseif prop == "MaxPromptsVisible" and game.ProximityPromptService.MaxPromptsVisible < 1 then
+game.ProximityPromptService.MaxPromptsVisible = 10
+   end
+ end)
+ 
+   end    
+})
+
+Tab:AddButton({
+ Name = "Activate all proximity prompts",
+ Callback = function()
+ local oldpos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+       for _, class in next, workspace:GetDescendants() do
+         if class:IsA("ProximityPrompt") and class.Parent["CFrame"] then
+ game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = class.Parent.CFrame
+  task.wait()
+ fireproximityprompt(class, 0)
+ fireproximityprompt(class, 1)
+  task.wait(0.05)
+         end
+       end
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos
+   end    
+})
+
+Tab:AddToggle({
+ Name = "Include proximity prompts aura",
+ Default = false,
+ Callback = function(Value)
+vgh = Value
+     while vgh and task.wait(0.1) do
+       for _, v in next, workspace:GetDescendants() do
+          if v:IsA("ProximityPrompt") then
+             fireproximityprompt(v, 0)
+             fireproximityprompt(v, 1)
+          end
+       end
+     end
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "CoreGui (open all tabs to make it work)"
+})
+
+Tab:AddToggle({
+ Name = "Hide leave button",
+ Default = false,
+ Callback = function(Valu)
+      pcall(function()
+       game.CoreGui.RobloxGui.SettingsClippingShield.SettingsShield.MenuContainer.PageViewClipper.PageView.PageViewInnerFrame.Players.ButtonsContainer.LeaveButtonButton.Visible = Valu
+      end)
+   end    
+})
+
+Tab:AddToggle({
+ Name = "Hide gamepasses prompt",
+ Default = false,
+ Callback = function(Value)
+      pcall(function()
+       game:GetService("CoreGui").PurchasePrompt.Enabled = Value
+      end)
+   end    
+})
+
+local Section = Tab:AddSection({
  Name = "Keyboard / Screen Control"
 })
 
