@@ -2769,6 +2769,50 @@ OrionLib:MakeNotification({
    end    
 })
 
+local Section = Tab:AddSection({
+ Name = "Finders"
+})
+
+Tab:AddButton({
+ Name = "Print scripts",
+ Callback = function()
+for _, v in next, game:GetDescendants() do
+ if v:IsA("Script") or v:IsA("LocalScript") then
+  print(v.ClassName, v.Name, v.Parent)
+ end
+end
+   end    
+})
+
+Tab:AddButton({
+ Name = "Print all global environments",
+ Callback = function()
+     for i, v in next, getgenv() do
+       print(i, v)
+     end
+   end    
+})
+
+Tab:AddButton({
+ Name = "Print registry",
+ Callback = function()
+     for i, v in next, debug.getregistry() do
+       print(i, v)
+     end
+   end    
+})
+
+Tab:AddButton({
+ Name = "Print functions names in garbage collector",
+ Callback = function()
+for i, v in next, getgc() do
+  if typeof(v) == "function" and v ~= nil then
+print(debug.getinfo(v).name)
+  end
+end
+   end    
+})
+
 local Tab = Window:MakeTab({
 	Name = "Creator",
 	Icon = "rbxassetid://4483345998",
