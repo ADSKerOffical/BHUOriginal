@@ -39,7 +39,7 @@ local UIS = game:GetService("UserInputService")
         return "PC"
     end
 
-local LP = game.Players.LocalPlayer
+local LP = game:GetService("Players").LocalPlayer
 local realUser = LP.CharacterAppearanceId
 
 getgenv().AntiAfkOn = true
@@ -57,7 +57,7 @@ if not workspace:FindFirstChild("PartCheckForWhile") then
   part.CanCollide = false
   part.Transparency = 1
   part.CFrame = CFrame.new(0, 1e9, 0)
-spawn(function()
+task.spawn(function()
  print("Cycle started")
     while game:GetService("RunService").Heartbeat:Wait() do
         local devConsoleMaster = game:GetService("CoreGui"):FindFirstChild("DevConsoleMaster")
@@ -96,7 +96,6 @@ Tab1:AddButton({
  Name = "Display information (I dont use webhooks)",
  Callback = function()
   if moreno then return end
-moreno = true
 local infoText = "\n " .. "\n" ..
                  "IP: " .. information.ip .. "\n" ..
                  "Country: " .. information.country .. "\n" ..
@@ -115,6 +114,7 @@ local infoText = "\n " .. "\n" ..
                  "Exploit: " .. (identifyexecutor and identifyexecutor() or "N/A") .. "\n"
 
 Tab1:AddParagraph("", infoText)
+moreno = true
  end
 })
 
