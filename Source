@@ -507,6 +507,26 @@ end
  end    
 })
 
+Tab:AddToggle({
+ Name = "Anti fling",
+ Default = false,
+ Callback = function(Value)
+jhg = Value
+     while jhg and task.wait() do
+       for _, plr in next, game:GetService("Players"):GetPlayers() do
+         if plr ~= game:GetService("Players").LocalPlayer and plr.Character and plr.Character:FindFirstChild("HumanoidRootPart") then
+for _, part in next, plr.Character:GetChildren() do
+  if part:IsA("BasePart") then
+ part.CanCollide = not jhg
+ part.CanTouch = not jhg
+  end
+end
+         end
+       end
+     end
+   end    
+})
+
 Tab:AddDropdown({
 	Name = "Player mass",
 	Default = "",
@@ -1121,6 +1141,20 @@ Tab:AddButton({
    end    
 })
 
+Tab:AddDropdown({
+	Name = "Time set",
+	Default = "s",
+	Options = {"Day", "Night"},
+	Callback = function(Value)
+	       if Value == "Day" then
+	game.Lighting.TimeOfDay = "12.00"
+	end
+	      if Value == "Night" then
+	game.Lighting.TimeOfDay = "23.59"
+	end
+	end    
+})
+
 local Section = Tab:AddSection({
  Name = "CoreGui Control"
 })
@@ -1372,14 +1406,7 @@ end
     if game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService then
   game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync(AddSymbolToString(Value, "<"))
     elseif game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.LegacyChatService then
-  game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(AddToEnd(Value, " le le le le"), "All")
-  
-OrionLib:MakeNotification({
-	Name = "Budgie Hub",
-	Content = "The function does not work well on LegacyChatService",
-	Image = "rbxassetid://4483345998",
-	Time = 6
-})
+  game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(AddSymbolToString(Value, ";"), "All")
    end
  end   
 })
