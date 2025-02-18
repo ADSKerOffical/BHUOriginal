@@ -715,6 +715,32 @@ end
    end    
 })
 
+Tab:AddToggle({
+ Name = "Part fling aura+",
+ Default = false,
+ Callback = function(Value)
+ oppja = Value
+while oppja and task.wait() do
+  if game.Players.LocalPlayer.Character then
+local parts = workspace:GetPartBoundsInRadius(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, 35)
+  for _, part in ipairs(parts) do
+    if part and part.Anchored == false and part.Parent ~= game.Players.LocalPlayer.Character and not game.Players:FindFirstChild(part.Parent.Name) then
+part.Velocity = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - part.Position).Unit * -250
+part.Massless = true
+part.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0) 
+  if part:FindFirstChild("PrimaryPart") ~= nil and part.PrimaryPart.Parent ~= game.Players.LocalPlayer.Character and not part.PrimaryPart.Anchored then
+     part.Velocity = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - part.PrimaryPart.Position).Unit * -300
+  end
+  if part:GetRootPart() and part:GetRootPart().Parent ~= game.Players.LocalPlayer.Character and not part:GetRootPart().Anchored then
+     part:GetRootPart().Velocity = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - part:GetRootPart().Position).Unit * -300
+  end
+      end
+    end
+  end
+end   
+   end    
+})
+
 Tab:AddDropdown({
 	Name = "Fling part tools (too by me)",
 	Default = "",
@@ -2847,6 +2873,50 @@ print(debug.getinfo(v).name)
 end
    end    
 })
+
+local Tab = Window:MakeTab({
+	Name = "Note",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local Section = Tab:AddSection({
+ Name = "Explain how it all works:"
+})
+
+Tab:AddLabel("Info")
+
+Tab:AddParagraph("", "You just find out information about yourself as in ghost hub")
+
+Tab:AddLabel("Universal: Tools")
+
+Tab:AddParagraph("Equip all tools", "You simply equip all your tools from backpack")
+Tab:AddParagraph("Drop all tools", "You drop all your tools (from backpack only)")
+Tab:AddParagraph("Twirl tools", "I dont know how to explain it, but you just spin your tools (visually), but the damage increases (if there is TouchInterest)")
+Tab:AddParagraph("Random GripPos", "Set randoms GripPos on all your tools (regardless of whether you have them on or not)") 
+Tab:AddParagraph("Auto click", "Automatically activate all your tools through tool:Activate()")
+Tab:AddParagraph("Disable tools handle collision", "tool.Handle.CanCollide = false")
+Tab:AddParagraph("Touch everyone with your handle", "You touch your instruments to all players (you can kill all players with this if there is TouchInterest)")
+Tab:AddParagraph("Touch models with your handle", "Similar to the previous function, but you can touch NPCs, but not players")
+
+Tab:AddLabel("Universal: Local Humanoid Control")
+
+Tab:AddParagraph("", "Jump Baki Hanma, Attract to player, Locked to player, Helicopter, -2000 aura, Velocity fly, Flappy bird fly I did it just as a joke and to add something")
+Tab:AddParagraph("Anti sit", "You cant sit down")
+Tab:AddParagraph("Anti velocity", "When your velocity magnitude >= 40 then your velocity set to 0")
+Tab:AddParagraph("Anti velocity v2", "Removes from local player physics (velocity) instances")
+Tab:AddParagraph("Basic noclip", "You pass through walls (dont jump)")
+Tab:AddParagraph("Player mass", "Set CustomPhysicalProperties on max (Density) or normal or zero")
+
+Tab:AddLabel("Parts control")
+
+Tab:AddParagraph("Grab tool", "Click on the part you want to pull (only unanchored ones)")
+Tab:AddParagraph("Inviolable to objects", "Anti TouchInterest on local player model method part.CanTouch = false (This is not the same as noclip)")
+Tab:AddParagraph("Infinite simulation radius", "Increase your SimulationRadius on math.huge (infinity) (how far can you function with parts through script)")
+Tab:AddParagraph("Black hole creator tool", "You spawn a black hole where you clicked that attracts all nearest objects (Disappears after 10 seconds)")
+Tab:AddParagraph("Part fling aura+", "Push nearest parts with his primary and root part")
+
+Tab:AddParagraph("", "Im too lazy to make a useless tab that no one will notice, but Ill do it later")
 
 local Tab = Window:MakeTab({
 	Name = "Creator",
