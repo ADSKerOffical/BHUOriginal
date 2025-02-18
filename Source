@@ -20,6 +20,16 @@ OrionLib:MakeNotification({
 	Time = 5
 })
 
+if game.PlaceId == 4225025295 then -- BES – Budgie Error Storage 
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/ionlyusegithubformcmods/1-Line-Scripts/main/Mobile%20Friendly%20Orion')))()
+  OrionLib:MakeNotification({
+	Name = "Budgie Hub",
+	Content = '<p><font color="rgb(255, 0, 0)">BES: Error loading script: Broken place does not allow to load the script please wait for the fix</font></p>',
+	Image = "https://www.roblox.com/asset-thumbnail/image?assetId=12450524090&width=432&height=432&format=png",
+	Time = 10
+  })
+end
+
 local Window = OrionLib:MakeWindow({Name = "Budgie Hub | Universal", HidePremium = true, IntroEnabled = false, SaveConfig = false, ConfigFolder = "OrionTest"})
 
 local Tab1 = Window:MakeTab({
@@ -249,6 +259,31 @@ local tool = LP.Character and LP.Character:FindFirstChildOfClass("Tool")
                 end
             end
         end
+     end
+ end    
+})
+
+Tab:AddToggle({
+ Name = "Touch models with your handle",
+ Default = false,
+ Callback = function(Value)
+ooj = Value
+while ooj and game:GetService("RunService").RenderStepped:Wait() do
+    local LP = game:GetService("Players").LocalPlayer
+local tool = LP.Character and LP.Character:FindFirstChildOfClass("Tool")
+            if tool and tool:FindFirstChild("Handle") then
+                tool:Activate()
+                for i, v in next, workspace:GetDescendants() do
+                    if v:IsA("Humanoid") and not game:GetService("Players"):GetPlayerFromCharacter(v) then
+                       for i, d in next, v.Parent:GetChildren() do
+                         if d:IsA("BasePart") then
+                           firetouchinterest(tool.Handle, d, 0)
+                           firetouchinterest(tool.Handle, d, 1)
+                        end
+                    end
+                 end
+             end
+         end
      end
  end    
 })
