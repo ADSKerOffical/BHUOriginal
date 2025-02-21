@@ -748,10 +748,10 @@ local parts = workspace:GetPartBoundsInRadius(game.Players.LocalPlayer.Character
 part.Velocity = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - part.Position).Unit * -250
 part.Massless = true
 part.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0) 
-  if part:FindFirstChild("PrimaryPart") ~= nil and part.PrimaryPart.Parent ~= game.Players.LocalPlayer.Character and not part.PrimaryPart.Anchored then
+  if part:FindFirstChild("PrimaryPart") ~= nil and part.PrimaryPart.Parent ~= game.Players.LocalPlayer.Character and not part.PrimaryPart.Anchored and not game.Players:FindFirstChild(part.PrimaryPart.Parent.Name) then
      part.Velocity = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - part.PrimaryPart.Position).Unit * -300
   end
-  if part:GetRootPart() and part:GetRootPart().Parent ~= game.Players.LocalPlayer.Character and not part:GetRootPart().Anchored then
+  if part:GetRootPart() and part:GetRootPart().Parent ~= game.Players.LocalPlayer.Character and not part:GetRootPart().Anchored and not game.Players:FindFirstChild(part:GetRootPart().Parent.Name) then
      part:GetRootPart().Velocity = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - part:GetRootPart().Position).Unit * -300
   end
       end
