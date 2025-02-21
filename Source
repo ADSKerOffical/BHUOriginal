@@ -1885,6 +1885,17 @@ end
     end   
 })
 
+Tab:AddToggle({
+ Name = "Screen auto clicker",
+ Default = false,
+ Callback = function(Value)
+gyyhh = Value
+     while gyyhh and task.wait() do
+game:GetService("VirtualInputManager"):SendMouseButtonEvent(0, 0, 0, true, game, 1)
+     end
+   end    
+})
+
 Tab:AddTextbox({
  Name = "Simulate a button press",
  Default = "UDim (x, y)",
