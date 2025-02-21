@@ -519,6 +519,8 @@ for _, part in next, plr.Character:GetChildren() do
   if part:IsA("BasePart") then
  part.CanCollide = not jhg
  part.CanTouch = not jhg
+ part.Velocity = Vector3.zero
+ part.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
   end
 end
          end
