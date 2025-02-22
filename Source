@@ -21,11 +21,16 @@ OrionLib:MakeNotification({
 })
 
 if game.PlaceId == 4225025295 then -- BES – Budgie Error Storage 
+substitute = hookmetamethod(game, "__index", function(self, prop) -- by me
+ if self == game and prop == "Players" then
+return game:GetService("Players") end
+  return substitute(self, prop)
+end)
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/ionlyusegithubformcmods/1-Line-Scripts/main/Mobile%20Friendly%20Orion')))()
   OrionLib:MakeNotification({
 	Name = "Budgie Hub",
-	Content = '<p><font color="rgb(255, 0, 0)">BES: Error loading script: Broken place does not allow to load the script please wait for the fix</font></p>',
-	Image = "https://www.roblox.com/asset-thumbnail/image?assetId=12450524090&width=432&height=432&format=png",
+	Content = '<p><font color="rgb(0, 255, 0)">BES: Error has been corrected you can continue using the script</font></p>',
+	Image = "https://www.roblox.com/asset-thumbnail/image?assetId=13693399253&width=432&height=432&format=png",
 	Time = 10
   })
 end
