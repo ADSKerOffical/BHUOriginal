@@ -1546,6 +1546,39 @@ end
 	end	  
 })
 
+Tab:AddToggle({
+ Name = "Disable animate",
+ Default = false,
+ Callback = function(Value)
+        game.Players.LocalPlayer.Character.Animate.Disabled = Value
+   end    
+})
+
+Tab:AddTextbox({
+  Name = "Active all animations at player",
+  Default = "",
+  TextDisappear = true,
+  Callback = function(Value)
+local player = api2:GetPlayerByLowerName(Value)
+    if player and player ~= game.Players.LocalPlayer and player.Character and player.Character.Humanoid then
+for _, anim in next, player.Character.Humanoid:GetPlayingAnimationTracks() do
+  local anima = Instance.new("Animation")
+  anima.AnimationId = anim.Animation.AnimationId
+  local an = game.Players.LocalPlayer.Character.Humanoid:LoadAnimation(anima)
+   an:Play()
+   an.Looped = false
+end
+      else
+OrionLib:MakeNotification({
+   Name = "Budgie Hub",
+   Content = "Player not found",
+   Image = "rbxassetid://4483345998",
+   Time = 5
+})
+    end
+ end   
+})
+
 local Section = Tab:AddSection({
  Name = "Gui Control"
 })
