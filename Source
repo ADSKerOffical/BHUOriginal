@@ -983,10 +983,13 @@ end
 	end
 })
 
-Tab:AddButton({
- Name = "Black hole creator tool",
- Callback = function()
-        local tool = Instance.new("Tool")
+Tab:AddDropdown({
+	Name = "Black hole creator tools",
+	Default = "",
+	Options = {"Basic black hole creator", "Endless black hole creator", "White hole creator"},
+	Callback = function(Value)
+	   if Value == "Basic black hole creator" then
+local tool = Instance.new("Tool")
 tool.Name = "Black hole creator"
 tool.RequiresHandle = false
 
@@ -1021,7 +1024,80 @@ until not hole or hole.Size.X <= 0 or hole.Parent == nil or hole == nil
 end)
 
 tool.Parent = game.Players.LocalPlayer.Backpack
-   end    
+	    elseif Value == "Endless black hole creator" then
+local tool = Instance.new("Tool")
+tool.Name = "Endless black hole creator"
+tool.RequiresHandle = false
+
+tool.Activated:Connect(function()
+  coroutine.wrap(function()
+local mouseh = game.Players.LocalPlayer:GetMouse().Hit
+local hole = cloneref(Instance.new("Part", workspace))
+hole.Position = mouseh.Position
+hole.Anchored = true
+hole.CanCollide = false
+hole.Shape = "Ball"
+hole.Size = Vector3.new(0.1, 0.1, 0.1)
+hole.Color = Color3.new(0, 0, 0)
+hole.Material = "Neon"
+game.Debris:AddItem(hole, 5)
+
+local partTweenn2 = game:GetService("TweenService"):Create(hole, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {
+        Size = Vector3.new(35, 35, 35)
+    })
+    partTweenn2:Play()
+  spawn(function()
+repeat task.wait()
+local parts = workspace:GetPartBoundsInRadius(hole.Position, 1e10)
+ for _, part in ipairs(parts) do
+   if part and part.Anchored == false and part.Parent ~= game.Players.LocalPlayer.Character and not game.Players:FindFirstChild(part.Parent.Name) then
+  part.Velocity += (hole.Position - part.Position).Unit * 250
+   end
+ end
+until not hole or hole.Size.X <= 0 or hole.Parent == nil or hole == nil
+  end)
+   end)()
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+	    elseif Value == "White hole creator" then
+local tool = Instance.new("Tool")
+tool.Name = "White hole creator"
+tool.RequiresHandle = false
+
+tool.Activated:Connect(function()
+  coroutine.wrap(function()
+local mouseh = game.Players.LocalPlayer:GetMouse().Hit
+local hole = cloneref(Instance.new("Part", workspace))
+hole.Position = mouseh.Position
+hole.Anchored = true
+hole.CanCollide = false
+hole.Shape = "Ball"
+hole.Size = Vector3.new(0.1, 0.1, 0.1)
+hole.Color = Color3.new(1, 1, 1)
+hole.Material = "Neon"
+game.Debris:AddItem(hole, 5)
+
+local partTweenn2 = game:GetService("TweenService"):Create(hole, TweenInfo.new(0.3, Enum.EasingStyle.Exponential), {
+        Size = Vector3.new(35, 35, 35)
+    })
+    partTweenn2:Play()
+  spawn(function()
+repeat task.wait()
+local parts = workspace:GetPartBoundsInRadius(hole.Position, 200)
+ for _, part in ipairs(parts) do
+   if part and part.Anchored == false and part.Parent ~= game.Players.LocalPlayer.Character and not game.Players:FindFirstChild(part.Parent.Name) then
+  part.Velocity += (hole.Position - part.Position).Unit * -400
+   end
+ end
+until not hole or hole.Size.X <= 0 or hole.Parent == nil or hole == nil
+  end)
+   end)()
+end)
+
+tool.Parent = game.Players.LocalPlayer.Backpack
+	   end
+	end    
 })
 
 Tab:AddToggle({
@@ -3124,6 +3200,35 @@ Tab:AddButton({
       for _, scr in ipairs(game.Players.LocalPlayer:GetDescendants()) do
         if scr:IsA("ValueBase") then
  print(scr.ClassName, scr:GetFullName(), scr.Value)
+        end
+      end
+   end    
+})
+
+Tab:AddButton({
+ Name = "Print all parts which have TouchInterest",
+ Callback = function()
+ print("Parts which have TouchInterest:")
+      for _, part in next, workspace:GetDescendants() do
+         if part:IsA("BasePart") and part:FindFirstChild("TouchInterest") then
+print(part:GetFullName())
+         end
+      end
+   end    
+})
+
+Tab:AddButton({
+ Name = "Print Sky Facets Id",
+ Callback = function()
+   for i, v in pairs(game.Lighting:GetChildren()) do
+      if v:IsA("Sky")  then
+   print("Sky Name:", v.Name)
+   print("Sky Bk:", v.SkyboxBk)
+   print("Sky Dn:", v.SkyboxDn)
+   print("Sky Ft:", v.SkyboxFt)
+   print("Sky Lf:", v.SkyboxLf)
+   print("Sky Rt:", v.SkyboxRt)
+   print("Sky Up:", v.SkyboxUp)
         end
       end
    end    
