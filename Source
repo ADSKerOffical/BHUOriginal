@@ -171,6 +171,7 @@ LPH = LP.Character.Humanoid
 LPH:UnequipTools()
  for _, tool in ipairs(LP.Backpack:GetDescendants()) do
    if tool:IsA("Tool") then
+tool.CanBeDropped = true
 tool.Parent = LP.Character
 tool.Parent = workspace
    end
@@ -237,7 +238,7 @@ tool.Handle.CanCollide = false
   end
 end
 
-for _, tool in ipairs(LP.Backpacl:GetDescendants()) do
+for _, tool in ipairs(LP.Backpack:GetDescendants()) do
   if tool:IsA("Tool") and tool:FindFirstChild("Handle") then
 tool.Handle.CanCollide = false
   end
@@ -1180,7 +1181,7 @@ local StarterGui = game:GetService("StarterGui")
 StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
 end
       if Value == "Enable emotes" then
-      game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, false)
+      game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.EmotesMenu, true)
       end
       if Value == "Enable leaderboard" then
       sgui = game:GetService("StarterGui")
@@ -1909,6 +1910,38 @@ vgh = Value
           end
        end
      end
+   end    
+})
+
+local Section = Tab:AddSection({
+ Name = "Click Detector control"
+})
+
+Tab:AddButton({
+ Name = "Activate all click detectors",
+ Callback = function()
+      for _, detec in next, workspace:GetDescendants() do
+         if detec:IsA("ClickDetector") then
+     detec.MaxActivationDistance = math.huge
+     fireclickdetector(detec)
+         end
+      end
+   end    
+})
+
+Tab:AddToggle({
+ Name = "Fire click detectors aura",
+ Default = false,
+ Callback = function(Value)
+    oppoj = Value
+      while oppoj and task.wait() do
+local parts = workspace:GetPartBoundsInRadius(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, 30)
+  for _, part in ipairs(parts) do
+     if part and part:FindFirstChildOfClass("ClickDetector") then
+fireclickdetector(part:FindFirstChildOfClass("ClickDetector"))
+     end
+  end
+      end
    end    
 })
 
