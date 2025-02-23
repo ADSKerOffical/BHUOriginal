@@ -3023,6 +3023,24 @@ end
    end    
 })
 
+Tab:AddButton({
+ Name = "Print all local player value bases",
+ Callback = function()
+      for _, scr in ipairs(game.Players.LocalPlayer:GetDescendants()) do
+        if scr:IsA("ValueBase") then
+ print(scr.ClassName, scr:GetFullName(), scr.Value)
+        end
+      end
+   end    
+})
+
+Tab:AddButton({
+ Name = "Tool gun (finder gun)",
+ Callback = function()
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/Tool/refs/heads/main/Tool%20Gun"))()
+   end    
+})
+
 local Tab = Window:MakeTab({
 	Name = "Note",
 	Icon = "rbxassetid://4483345998",
