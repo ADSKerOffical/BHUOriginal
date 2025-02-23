@@ -1507,6 +1507,17 @@ togel = not Value
  end    
 })
 
+Tab:AddToggle({
+ Name = "Clear error after disconnect",
+ Default = false,
+ Callback = function(Value)
+       game:GetService("GuiService").ErrorMessageChanged:Connect(function()
+           if Value == false then return end
+          game:GetService("GuiService"):ClearError()
+       end)
+   end    
+})
+
 local Section = Tab:AddSection({
  Name = "Network"
 })
@@ -1666,6 +1677,66 @@ messag("Teleport failed")
      end
    end)
  end   
+})
+
+Tab:AddButton({
+ Name = "Teleport to small server",
+ Callback = function()
+local Response = game:HttpGet("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")
+    local Data = game:GetService("HttpService"):JSONDecode(Response)
+
+local ServerId = nil
+    for _, Server in ipairs(Data.data) do
+        if Server.playing <= 3 then
+            ServerId = Server.id
+        end
+    end
+  if ServerId ~= nil then
+game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, ServerId, game.Players.LocalPlayer)
+    else
+warn("Not found")
+  end
+   end    
+})
+
+Tab:AddButton({
+ Name = "Teleport to lonely server",
+ Callback = function()
+        local Response = game:HttpGet("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")
+    local Data = game:GetService("HttpService"):JSONDecode(Response)
+
+local ServerId = nil
+    for _, Server in ipairs(Data.data) do
+        if Server.playing <= 1 then
+            ServerId = Server.id
+        end
+    end
+  if ServerId ~= nil then
+game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, ServerId, game.Players.LocalPlayer)
+    else
+warn("Not found")
+  end
+   end    
+})
+
+Tab:AddButton({
+ Name = "Teleport to server with low ping",
+ Callback = function()
+        local Response = game:HttpGet("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")
+    local Data = game:GetService("HttpService"):JSONDecode(Response)
+
+local ServerId = nil
+    for _, Server in ipairs(Data.data) do
+        if Server.ping <= 80 then
+            ServerId = Server.id
+        end
+    end
+  if ServerId ~= nil then
+game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, ServerId, game.Players.LocalPlayer)
+    else
+warn("Not found")
+  end
+   end    
 })
 
 local Section = Tab:AddSection({
