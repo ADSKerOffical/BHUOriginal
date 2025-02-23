@@ -513,6 +513,68 @@ end
  end    
 })
 
+Tab:AddDropdown({
+	Name = "Change RigType",
+	Default = "",
+	Options = {"R6", "R15"},
+	Callback = function(Value)
+  local success, error = pcall(function()
+		if Value == "R6" then
+ game:GetService("AvatarEditorService"):PromptSaveAvatar(game.Players.LocalPlayer.Character.Humanoid.HumanoidDescription, Enum.HumanoidRigType.R6)
+		elseif Value == "R15" then
+ game:GetService("AvatarEditorService"):PromptSaveAvatar(game.Players.LocalPlayer.Character.Humanoid.HumanoidDescription, Enum.HumanoidRigType.R15)
+		end
+	  end)
+	   if not success then
+OrionLib:MakeNotification({
+	Name = "Budgie Hub: BES",
+	Content = '<p><font color="rgb(255, 0, 0)">BES: An error occurred probably because your executor was blocked AvatarEditorService:PromptSaveAvatar</font></p>',
+	Image = "https://www.roblox.com/asset-thumbnail/image?assetId=12450524090&width=432&height=432&format=png",
+	Time = 9
+})
+	   end
+	end    
+})
+
+local hiddenfling = false
+Tab:AddToggle({
+    Name = "Touch fling",
+    Default = false,
+    Callback = function(value)
+ hiddenfling = value
+            local hrp, c, vel, movel = nil, nil, nil, 0.1
+            local player = game.Players.LocalPlayer
+
+            while player and player.Character and player.Character:FindFirstChild("Humanoid") and player.Character.Humanoid.Health > 0 and hiddenfling == true do
+                game:GetService("RunService").Heartbeat:Wait()
+
+                local lp = player
+                while hiddenfling == true and not (c and c.Parent and hrp and hrp.Parent) do
+                    game:GetService("RunService").Heartbeat:Wait()
+                    c = lp.Character
+                    hrp = c:FindFirstChild("HumanoidRootPart") or c:FindFirstChild("Torso") or c:FindFirstChild("UpperTorso")
+                end
+
+                if hiddenfling == true then
+                    vel = hrp.Velocity
+                    hrp.Velocity = vel * 10000 + Vector3.new(0, 100000, 0)
+                    game:GetService("RunService").RenderStepped:Wait()
+
+                    if c and c.Parent and hrp and hrp.Parent then
+                        hrp.Velocity = vel
+                    end
+
+                    game:GetService("RunService").Stepped:Wait()
+
+                    if c and c.Parent and hrp and hrp.Parent then
+                        hrp.Velocity = vel + Vector3.new(0, movel, 0)
+                        movel = movel * -1
+                    end
+                end
+            end
+end
+})
+
 Tab:AddToggle({
  Name = "Anti fling",
  Default = false,
