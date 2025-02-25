@@ -1557,6 +1557,22 @@ end
  end   
 })
 
+Tab:AddButton({
+ Name = "Tall message",
+ Callback = function()
+       if game:GetService("TextChatService").ChatVersion == Enum.ChatVersion.TextChatService then
+  game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("." .. string.rep("\r", 197) .. ".")
+         else
+OrionLib:MakeNotification({
+	Name = "Budgie Hub",
+	Content = '<p><font color="rgb(255, 0, 0)">The function works only on a new chat</font></p>',
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+      end
+   end    
+})
+
 local Section = Tab:AddSection({
  Name = "Camera Control"
 })
