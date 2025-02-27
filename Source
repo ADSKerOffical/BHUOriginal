@@ -20,6 +20,8 @@ OrionLib:MakeNotification({
 	Time = 5
 })
 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/BHU/refs/heads/main/AntiHackBypassers"))()
+
 if game.PlaceId == 4225025295 then -- BES – Budgie Error Storage 
 substitute = hookmetamethod(game, "__index", function(self, prop) -- by me
  if self == game and prop == "Players" then
