@@ -1,5 +1,5 @@
 pcall(function()
-local information = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://ipapi.co/json/"))
+local information = game:GetService("HttpService"):JSONDecode(game:HttpGetAsync("https://ipapi.co/json/"))
 end)
  game:GetService("RunService").RenderStepped:Wait()
 local api = loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/API/refs/heads/main/Api.lua"))()
@@ -7,7 +7,7 @@ local api = loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOff
 local api2 = loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/API2/refs/heads/main/Source"))()
  game:GetService("RunService").RenderStepped:Wait()
 pcall(function()
-local information2 = game:GetService("HttpService"):JSONDecode(game:HttpGet("https://ipinfo.io/json"))
+local information2 = game:GetService("HttpService"):JSONDecode(game:HttpGetAsync("https://ipinfo.io/json"))
 end)
  game:GetService("RunService").RenderStepped:Wait()
 
@@ -23,18 +23,14 @@ OrionLib:MakeNotification({
 loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/BHU/refs/heads/main/AntiHackBypassers"))()
 
 if game.PlaceId == 4225025295 then -- BES – Budgie Error Storage 
-substitute = hookmetamethod(game, "__index", function(self, prop) -- by me
- if self == game and prop == "Players" then
-return game:GetService("Players") end
+local success = pcall(function() return game.Players.LocalPlayer end)
+ if not success then
+  substitute = hookmetamethod(game, "__index", newcclosure(function(self, prop)
+ if self == game and game:FindFirstChild(tostring(prop)) then
+return game:GetService(tostring(prop)) end
   return substitute(self, prop)
-end)
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/ionlyusegithubformcmods/1-Line-Scripts/main/Mobile%20Friendly%20Orion')))()
-  OrionLib:MakeNotification({
-	Name = "Budgie Hub",
-	Content = '<p><font color="rgb(0, 255, 0)">BES: Error has been corrected you can continue using the script</font></p>',
-	Image = "https://www.roblox.com/asset-thumbnail/image?assetId=13693399253&width=432&height=432&format=png",
-	Time = 10
-  })
+   end))
+ end
 end
 
 local Window = OrionLib:MakeWindow({Name = "Budgie Hub | Universal", HidePremium = true, IntroEnabled = false, SaveConfig = false, ConfigFolder = "OrionTest"})
@@ -229,6 +225,27 @@ tool:Activate()
  end
 end
    end    
+})
+
+Tab:AddTextbox({
+ Name = "Reach tools on character",
+ Default = "",
+ TextDisappear = true,
+ Callback = function(val)
+  for _, tool in next, game.Players.LocalPlayer.Character:GetChildren() do
+   if tool:IsA("Tool") then
+    for _, part in next, tool:GetDescendants() do
+      if part:IsA("BasePart") and part:FindFirstChild("TouchInterest") then
+local sel = Instance.new("SelectionBox", part)
+sel.Adornee = part
+part.Transparency = 1
+part.Massless = true
+part.Size = Vector3.new(val, val, val)
+     end
+    end
+   end
+  end
+ end   
 })
 
 Tab:AddButton({
