@@ -289,6 +289,35 @@ local tool = LP.Character and LP.Character:FindFirstChildOfClass("Tool")
 })
 
 Tab:AddToggle({
+ Name = "Touch everyone with your handle v2",
+ Default= false,
+ Callback = function(Value)
+       while true and game:GetService("RunService").RenderStepped:Wait() do
+ pcall(function()
+    local p = game.Players:GetPlayers()
+    for i = 2, #p do local v = p[i].Character
+local LP = game.Players.LocalPlayer
+local tool = LP.Character and LP.Character:FindFirstChildOfClass("Tool")
+            if tool then
+                tool:Activate()
+                for i, v in next, v:GetChildren() do
+                  if v:IsA("BasePart") then
+                     for _, part in next, tool:GetDescendants() do
+                       if part:IsA("BasePart") and part:FindFirstChild("TouchInterest") then
+                        firetouchinterest(part, v, 0)
+                        firetouchinterest(part, v, 1)
+                       end
+                     end
+                  end
+               end
+            end
+        end
+     end)
+ end
+   end    
+})
+
+Tab:AddToggle({
  Name = "Touch models with your handle",
  Default = false,
  Callback = function(Value)
@@ -1589,6 +1618,18 @@ OrionLib:MakeNotification({
 	Time = 5
 })
       end
+   end    
+})
+
+Tab:AddToggle({
+ Name = "Russian chat bypass",
+ Default = false,
+ Callback = function(Value)
+ ffbh = Value
+     while ffbh and task.wait() do
+       game.Players:Chat("/e le le le le le")
+       game.Players:Chat("/e can can can can can can can")
+     end
    end    
 })
 
