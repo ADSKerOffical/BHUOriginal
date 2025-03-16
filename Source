@@ -292,7 +292,8 @@ Tab:AddToggle({
  Name = "Touch everyone with your handle v2",
  Default= false,
  Callback = function(Value)
-       while true and game:GetService("RunService").RenderStepped:Wait() do
+uijb = Value
+       while uijb and game:GetService("RunService").RenderStepped:Wait() do
  pcall(function()
     local p = game.Players:GetPlayers()
     for i = 2, #p do local v = p[i].Character
