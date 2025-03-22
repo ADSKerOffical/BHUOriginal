@@ -1634,6 +1634,45 @@ Tab:AddToggle({
    end    
 })
 
+Tab:AddButton({
+ Name = "/execute command",
+ Callback = function()
+game.StarterGui:SetCore("SendNotification", {
+     Title = "Budgie Hub";
+     Text = 'Chat command "/execute" activated';
+     Icon = "rbxassetid://16336200609";
+     Duration = "2";
+ })
+        if game.TextChatService.ChatVersion == Enum.ChatVersion.LegacyChatService then
+
+ game.Players.LocalPlayer.Chatted:Connect(function(message)
+  local parts = message:split(" ")
+  if parts[1] == "/execute" then
+    local code_string = table.concat(parts, " ", 2)
+
+    if code_string then
+      local func, err = loadstring(code_string)()
+    end
+   end
+  end)
+  
+ else
+ 
+ game.TextChatService.MessageReceived:Connect(function(info)
+  if info.TextSource and info.TextSource.UserId == game.Players.LocalPlayer.UserId then
+  local params = Instance.new("TextChatMessageProperties")
+   local parts = info.Text:split(" ")
+    if parts[1] == "/execute" then
+     local code = table.concat(parts, " ", 2)
+     if code then loadstring(code)() end
+     params.Text = ""
+   end
+  end
+ end)
+end
+   end    
+})
+
 local Section = Tab:AddSection({
  Name = "Camera Control"
 })
