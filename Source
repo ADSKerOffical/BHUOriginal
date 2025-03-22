@@ -2052,6 +2052,92 @@ Tab:AddButton({
 })
 
 local Section = Tab:AddSection({
+  Name = "Place settings"
+})
+
+Tab:AddButton({
+ Name = "Copy real place id",
+ Callback = function()
+        setclipboard(string.match(game.Players.LocalPlayer.CharacterAppearance, "?placeId=(%d+)"))
+   end    
+})
+
+Tab:AddButton({
+ Name = "Copy more place ids",
+ Callback = function()
+       setclipboard("Place Id: " .. tostring(game.PlaceId) .. ", Universe (Game) Id: " .. tostring(game.GameId) .. ", Job Id: " .. tostring(game.JobId) .. ", Version: " .. tostring(game.PlaceVersion) .. ", Creator Id: " .. tostring(game.CreatorId))
+   end    
+})
+
+Tab:AddTextbox({
+ Name = "Set place id",
+ Default = "",
+ TextDisappear = true,
+ Callback = function(Value)
+if string.find(Value, "%D") == nil then
+ local hook; hook = hookmetamethod(game, "__index", newcclosure(function(self, key)
+  if checkcaller() and self == game and key == "PlaceId" then
+   if Value == "" then
+    return tonumber(string.match(game.Players.LocalPlayer.CharacterAppearance, "?placeId=(%d+)"))
+     else
+    return tonumber(Value)
+   end
+  end
+   return hook(self, key)
+  end))
+ 
+game.StarterGui:SetCore("SendNotification", {
+     Title = "Budgie Hub";
+     Text = "The ID for the place has been set: " .. tostring(game.PlaceId),
+     Icon = "rbxassetid://16336200609";
+     Duration = "4";
+ })
+ else
+ OrionLib:MakeNotification({
+   Name = "Budgie Hub",
+   Content = '<p><font color="rgb(255, 0, 0)">Only numbers are accepted</font></p>',
+   Image = "rbxassetid://4483345998",
+   Time = 10
+  })
+end
+ end   
+})
+
+Tab:AddTextbox({
+ Name = "Set creator id",
+ Default = "",
+ TextDisappear = true,
+ Callback = function(Value)
+if string.find(Value, "%D") == nil then
+ local hook; hook = hookmetamethod(game, "__index", newcclosure(function(self, key)
+  if checkcaller() and self == game and key == "CreatorId" then
+   if Value == "" then
+    return tonumber(string.match(game.Players.LocalPlayer.CharacterAppearance, "?placeId=(%d+)"))
+     else
+    return tonumber(Value)
+   end
+  end
+   return hook(self, key)
+  end))
+ 
+game.StarterGui:SetCore("SendNotification", {
+     Title = "Budgie Hub";
+     Text = "The ID for the place has been set: " .. tostring(game.PlaceId),
+     Icon = "rbxassetid://16336200609";
+     Duration = "4";
+ })
+ else
+ OrionLib:MakeNotification({
+   Name = "Budgie Hub",
+   Content = '<p><font color="rgb(255, 0, 0)">Only numbers are accepted</font></p>',
+   Image = "rbxassetid://4483345998",
+   Time = 10
+  })
+end
+ end   
+})
+
+local Section = Tab:AddSection({
  Name = "Console Control"
 })
 
