@@ -2286,6 +2286,18 @@ vgh = Value
    end    
 })
 
+Tab:AddToggle({
+ Name = "Instant proximity prompts",
+ Default = false,
+ Callback = function(Value)
+       ippx = Value
+game:GetService("ProximityPromptService").PromptButtonHoldBegan:Connect(function(prompt) 
+ if ippx == false then return end
+  prompt.HoldDuration = 0 
+end)
+   end    
+})
+
 local Section = Tab:AddSection({
  Name = "Click Detector control"
 })
