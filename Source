@@ -646,6 +646,100 @@ end
    end    
 })
 
+Tab:AddToggle({
+ Name = "Anti slow",
+ Default = false,
+ Callback = function(Value)
+  pohhg = Value
+local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+   while pohhg and char:FindFirstChild("Humanoid") and task.wait() do
+       char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+       local humanoid = char:WaitForChild("Humanoid")
+for _, con in next, getconnections(humanoid.Changed) do con:Disconnect() end
+ if humanoid:GetStateEnabled("Running") ~= nil then
+  char.Humanoid:SetStateEnabled("Running", true) 
+ end
+    if char.Humanoid.WalkSpeed <= 14 then
+      char.Humanoid.WalkSpeed = 16
+    end
+ end
+   end    
+})
+
+Tab:AddToggle({
+ Name = "Anti no jumping",
+ Default = false,
+ Callback = function(Value)
+  huuwbh = Value
+ local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+   while huuwbh and char:FindFirstChild("Humanoid") and task.wait() do
+       char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+       local humanoid = char:WaitForChild("Humanoid")
+for _, con in next, getconnections(humanoid.Changed) do con:Disconnect() end
+ if humanoid:GetStateEnabled("Jumping") ~= nil then
+  char.Humanoid:SetStateEnabled("Jupming", true) 
+ end
+    if char.Humanoid.UseJumpPower then
+       if char.Humanoid.JumpPower <= 45 then
+          char.Humanoid.JumpPower = 50
+       end
+      else
+       if char.Humanoid.JumpHeight <= 6 then
+         char.Humanoid.JumpHeight = 7.2
+       end
+    end
+ end
+   end    
+})
+
+Tab:AddToggle({
+ Name = "Anti void",
+ Default = false,
+ Callback = function(Value)
+      local function getrespawn(): Instance
+  for _, part in next, workspace:GetDescendants() do
+    if part:IsA("SpawnLocation") then
+      return part
+   end
+  end
+end
+
+local thnei = Value
+local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+
+while thnei and task.wait() do
+char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+  if char:FindFirstChild("HumanoidRootPart") and char.HumanoidRootPart.CFrame.Y <= workspace.FallenPartsDestroyHeight + 10 then
+    if getrespawn() then
+ char.HumanoidRootPart.CFrame = getrespawn().CFrame
+ char.HumanoidRootPart.Velocity = Vector3.zero
+     else
+ char.HumanoidRootPart.CFrame = CFrame.new(0, 0, 0)
+ char.HumanoidRootPart.Velocity = Vector3.zero
+    end
+  end
+end
+   end    
+})
+
+Tab:AddDropdown({
+	Name = "Fun",
+	Default = "",
+	Options = {"She was fairy"},
+	Callback = function(Value)
+	   if Value == "She was fairy" then
+game.Players.LocalPlayer.Character.Humanoid.PlatformStand = true
+ workspace.Gravity = 0
+game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0, 3, 0)
+game.Players.LocalPlayer.Character.HumanoidRootPart.AssemblyAngularVelocity = Vector3.new(0, 3, 0)
+ 
+game.Players.LocalPlayer.Character.Humanoid.Died:Connect(function()
+  game.Workspace.Gravity = 196.2
+end)
+	   end
+	end    
+})
+
 Tab:AddDropdown({
 	Name = "Player mass",
 	Default = "",
@@ -1192,31 +1286,25 @@ end
  end
 })
 
-Tab:AddToggle({
- Name = "NetworkOwner bypass (by me)",
- Default = false,
- Callback = function(Value)
-yuipp = Value
-while yuipp and task.wait() do
-if game.Players.LocalPlayer.SimulationRadius ~= math.huge then
-  sethiddenproperty(game.Players.LocalPlayer, 'MaximumSimulationRadius', math.huge)
-  sethiddenproperty(game.Players.LocalPlayer, 'SimulationRadius', math.huge)
-  game.Players.LocalPlayer.MaximumSimulationRadius = math.huge
-  game.Players.LocalPlayer.SimulationRadius = math.huge
-end
-  
-local plr = game.Players:GetPlayers()[math.random(1, #game.Players:GetPlayers())]
- if plr ~= game.Players.LocalPlayer and plr.SimulationRadius > 0.001 then
-   for _, player in ipairs(game.Players:GetPlayers()) do
-     if player ~= game.Players.LocalPlayer then
-sethiddenproperty(player, 'MaximumSimulationRadius', 0.001)
-sethiddenproperty(player, 'SimulationRadius', 0.001)
-player.MaximumSimulationRadius = 0.001
-player.SimulationRadius = 0.001
+Tab:AddButton({
+ Name = "Simulation Bypass",
+ Callback = function()
+local bindable = Instance.new("BindableFunction")
+function bindable.OnInvoke(response)
+     if response == "Yes" then
+        loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/ADSKerOffical/BHU/refs/heads/main/SB"))()
      end
-  end
-   end
 end
+
+game:GetService("StarterGui"):SetCore("SendNotification", {
+	Title = "Notification",
+	Text = "Are you sure you want to run this feature? you can\'t turn it off",
+	Duration = math.huge,
+	Icon = "rbxassetid://16336200609",
+	Callback = bindable,
+	Button1 = "Yes",
+	Button2 = "No"
+})
    end
 })
 
