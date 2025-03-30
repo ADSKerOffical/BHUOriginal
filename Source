@@ -3804,6 +3804,13 @@ local Tab = Window:MakeTab({
 
 Tab:AddParagraph("ADSKer", '<p><font color="rgb(255, 0, 0)">creator of this hub script and almost all functions: ADSKer</font></p>')
 
+Tab:AddButton({
+ Name = "Copy user",
+ Callback = function()
+        setclipboard("https://www.roblox.com/users/4636830533/profile")
+   end    
+})
+
 local Section = Tab:AddSection({
  Name = "By me (I havent updated many scripts)"
 })
