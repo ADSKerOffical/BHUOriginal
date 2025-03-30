@@ -636,6 +636,8 @@ for _, part in next, plr.Character:GetChildren() do
   if part:IsA("BasePart") then
  part.CanCollide = not jhg
  part.CanTouch = not jhg
+ part.AssemblyLinearVelocity = Vector3.zero
+ part.AssemblyAngularVelocity = Vector3.zero
  part.Velocity = Vector3.zero
  part.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0)
   end
@@ -946,6 +948,7 @@ if not LP.Character or not LP.Character.HumanoidRootPart then return end
      for _, part in ipairs(LP.Character:GetDescendants()) do
        if part:IsA("BasePart") then
          part.CanTouch = not yun
+         part.CanQuery = not yun
        end
      end
    end
@@ -1045,7 +1048,6 @@ local parts = workspace:GetPartBoundsInRadius(game.Players.LocalPlayer.Character
   for _, part in ipairs(parts) do
     if part and part.Anchored == false and not part:IsDescendantOf(game.Players.LocalPlayer.Character) and not game.Players:FindFirstChild(part.Parent.Name) then
 part.Velocity = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - part.Position).Unit * -250
-part.Massless = true
       part.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0) 
       end
     end
@@ -1065,7 +1067,6 @@ local parts = workspace:GetPartBoundsInRadius(game.Players.LocalPlayer.Character
   for _, part in ipairs(parts) do
     if part and part.Anchored == false and not part:IsDescendantOf(game.Players.LocalPlayer.Character) and not game.Players:FindFirstChild(part.Parent.Name) then
 part.Velocity = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - part.Position).Unit * -250
-part.Massless = true
 part.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 0) 
   if part:FindFirstChild("PrimaryPart") ~= nil and not part.PrimaryPart:IsDescendantOf(game.Players.LocalPlayer.Character) and not part.PrimaryPart.Anchored and not game.Players:FindFirstChild(part.PrimaryPart.Parent.Name) then
      part.Velocity = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - part.PrimaryPart.Position).Unit * -300
@@ -1624,17 +1625,19 @@ Tab:AddToggle({
  Callback = function(Value)
 yoo = Value
 while yoo and task.wait() do
-sethiddenproperty(LP, "SimulationRadius", 112412400000)
-sethiddenproperty(LP, "MaxSimulationRadius", 112412400000)
-  if not LP.Character.HumanoidRootPart then return end
-for i,d in pairs(game.Workspace:GetDescendants()) do
-    if d.ClassName == 'Humanoid' and not game.Players:FindFirstChild(d.Parent.Name) then
-        d.Health = 0
-        d:ChangeState("Dead")
+ if workspace:FindFirstChild(game.Players.LocalPlayer.Name) and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+   local parts = workspace:GetPartBoundsInRadius(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, 45)
+    for _, part in next, parts do
+      if part.Anchored == false and not game.Players:GetPlayerFromCharacter(part.Parent) and part.Parent:FindFirstChildOfClass("Humanoid") then
+       local humanoid = part.Parent:FindFirstChildOfClass("Humanoid")
+        game.Players.LocalPlayer.SimulationRadius = math.huge
+        humanoid.Health = 0
+        humanoid:TakeDamage(math.huge)
+      end
     end
   end
-end
- end    
+ end
+   end    
 })
 
 Tab:AddToggle({
@@ -1643,16 +1646,18 @@ Tab:AddToggle({
  Callback = function(Value)
 myyy = Value
 while myyy and task.wait() do
- sethiddenproperty(LP, "SimulationRadius", 112412400000)
-sethiddenproperty(LP, "MaxSimulationRadius", 112412400000)
- if not LP.Character.HumanoidRootPart then return end
-for i,d in pairs(game.Workspace:GetDescendants()) do
-    if d.ClassName == 'Humanoid' and not game.Players:FindFirstChild(d.Parent.Name) then
-        d.RootPart.Velocity = (LP.Character.HumanoidRootPart.Position - d.RootPart.Position).Unit * -200
+ if workspace:FindFirstChild(game.Players.LocalPlayer.Name) and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+   local parts = workspace:GetPartBoundsInRadius(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, 45)
+    for _, part in next, parts do
+      if part.Anchored == false and not game.Players:GetPlayerFromCharacter(part.Parent) and part.Parent:FindFirstChildOfClass("Humanoid") then
+       local humanoid = part.Parent:FindFirstChildOfClass("Humanoid")
+        game.Players.LocalPlayer.SimulationRadius = math.huge
+        humanoid.RootPart.Velocity = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - humanoid.RootPart.Position).Unit * -200
+      end
     end
+  end
  end
-end
- end    
+   end    
 })
 
 Tab:AddToggle({
@@ -1660,44 +1665,41 @@ Tab:AddToggle({
  Default = false,
  Callback = function(Value)
 hhh = Value
-   while hhh and task.wait() do
-sethiddenproperty(LP, "SimulationRadius", 112412400000)
-sethiddenproperty(LP, "MaxSimulationRadius", 112412400000)
- if not LP.Character.HumanoidRootPart then return end
-for i, d in pairs(game.Workspace:GetDescendants()) do
-    if d.ClassName == 'Humanoid' and not game.Players:FindFirstChild(d.Parent.Name) then
-        d:ChangeState("FallingDown")
-        d.RootPart.Velocity = (LP.Character.HumanoidRootPart.Position - d.RootPart.Position).Unit * 150
+while hhh and task.wait() do
+ if workspace:FindFirstChild(game.Players.LocalPlayer.Name) and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+   local parts = workspace:GetPartBoundsInRadius(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, 45)
+    for _, part in next, parts do
+      if part.Anchored == false and not game.Players:GetPlayerFromCharacter(part.Parent) and part.Parent:FindFirstChildOfClass("Humanoid") then
+       local humanoid = part.Parent:FindFirstChildOfClass("Humanoid")
+        game.Players.LocalPlayer.SimulationRadius = math.huge
+        humanoid.RootPart.Velocity = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - humanoid.RootPart.Position).Unit * 200
+      end
     end
-end
-   end
- end    
+  end
+ end
+   end    
 })
 
 Tab:AddToggle({
-    Name = "Rotate nearest",
-    Default = false,
-    Callback = function(Value)
-        hhh = Value
-        while hhh and task.wait() do
-            sethiddenproperty(LP, "SimulationRadius", math.huge)
-            sethiddenproperty(LP, "MaxSimulationRadius", math.huge)
- if not LP.Character.HumanoidRootPart then return end
-            for _, d in pairs(game.Workspace:GetDescendants()) do
-                if d:IsA('Humanoid') and not game.Players:FindFirstChild(d.Parent.Name) and d.Parent:FindFirstChild("HumanoidRootPart") then
-                    local entityRootPart = d.Parent.HumanoidRootPart
-                    d:ChangeState("FallingDown")
-                    
-                    local angle = tick() * 2
-                    local radius = 20
-                    local targetPosition = LP.Character.HumanoidRootPart.Position + Vector3.new(radius * math.cos(angle), 0, radius * math.sin(angle))
-                    
-                    local direction = (targetPosition - entityRootPart.Position).Unit
-                    entityRootPart.Velocity = direction * 300
-                end
-            end
-        end
-    end    
+ Name = "Rotate nearest",
+ Default = false,
+ Callback = function(Value)
+oiyj = Value
+while oiyj and task.wait() do
+ if workspace:FindFirstChild(game.Players.LocalPlayer.Name) and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+   local parts = workspace:GetPartBoundsInRadius(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, 45)
+    for _, part in next, parts do
+      if part.Anchored == false and not game.Players:GetPlayerFromCharacter(part.Parent) and part.Parent:FindFirstChildOfClass("Humanoid") then
+       local humanoid = part.Parent:FindFirstChildOfClass("Humanoid")
+        game.Players.LocalPlayer.SimulationRadius = math.huge
+        humanoid:ChangeState("FallingDown")
+        local angle = tick() * 2
+        humanoid.RootPart.Velocity = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position + Vector3.new(20 * math.cos(angle), 0, 20 * math.sin(angle)) - humanoid.RootPart.Position).Unit * 300
+      end
+    end
+  end
+ end
+   end    
 })
 
 Tab:AddButton({
