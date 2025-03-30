@@ -3780,6 +3780,23 @@ Tab:AddParagraph("Part fling aura+", "Push nearest parts with his primary and ro
 Tab:AddParagraph("", "Im too lazy to make a useless tab that no one will notice, but Ill do it later")
 
 local Tab = Window:MakeTab({
+	Name = "Updates",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+Tab:AddLabel("30.03.2025")
+
+Tab:AddParagraph("Improved functions:", [[
+  Parts Control: 
+   Inviolable to objects – modification added CanQuery = false
+   Part fling auras – fixed bug with freezing npc
+  Local Humanoid Control: Anti fling – added more methods to stop objects from moving
+  NPCs control – instead of workspace:GetDescendants() is used workspace:GetPartBoundsInRadius for optimization (except Stun Nearest)
+  Click detector control: Activate all click detectors – modification added MaxActivationDistance = math.huge
+]])
+
+local Tab = Window:MakeTab({
 	Name = "Creator",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
