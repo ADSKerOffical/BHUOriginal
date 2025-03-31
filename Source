@@ -423,14 +423,31 @@ Tab:AddToggle({
  Name = "Anti sit",
  Default = false,
  Callback = function(Value)
-toggle3 = Value
-LPH = game.Players.LocalPlayer.Character.Humanoid
-LPH.Changed:Connect(function(prop)
-  if prop == "Sit" and toggle3 then
-LPH.Sit = false
-  end
-end)
- end    
+         game.Players.LocalPlayer.Character.Humanoid:SetStateEnabled("Seated", not Value)
+   end    
+})
+
+Tab:AddToggle({
+ Name = "Anti bang",
+ Default = false,
+ Callback = function(Value)
+  kiudi = Value
+     while kiudi and task.wait() do
+       for _, player in next, game.Players:GetPlayers() do
+         if player ~= game.Players.LocalPlayer and game.Workspace:FindFirstChild(player.Name) and player.Character:FindFirstChild("Humanoid") and player.Character:FindFirstChild("HumanoidRootPart") and (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - player.Character.HumanoidRootPart.Position).Magnitude <= 10 then
+           for _, anim in next, player.Character.Humanoid:GetPlayingAnimationTracks() do
+              if anim.Animation.AnimationId == "rbxassetid://148840371" or anim.Animation.AnimationId == "rbxassetid://5918726674" then
+    game:GetService("RunService").Heartbeat:Wait()
+    last_pick_sin_mrazy = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame 
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(9e8, workspace.FallenPartsDestroyHeight + 1, 9e8) 
+    game:GetService("RunService").Heartbeat:Wait()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = last_pick_sin_mrazy
+              end
+           end
+         end
+       end
+     end
+   end    
 })
 
 Tab:AddButton({
@@ -3794,6 +3811,16 @@ Tab:AddParagraph("Improved functions:", [[
   Local Humanoid Control: Anti fling – added more methods to stop objects from moving
   NPCs control – instead of workspace:GetDescendants() is used workspace:GetPartBoundsInRadius for optimization (except Stun Nearest)
   Click detector control: Activate all click detectors – modification added MaxActivationDistance = math.huge
+]])
+
+Tab:AddLabel("31.03.2025")
+
+Tab:AddParagraph("Improved functions:", [[
+   Local Humanoid Control: Anti sit – now it works instantly and defence from scripts 
+]])
+
+Tab:AddParagraph("Added functions:", [[
+  Local Humanoid Control: Anti bang – if there is a player with bang animation next to you, then the function is launched
 ]])
 
 local Tab = Window:MakeTab({
