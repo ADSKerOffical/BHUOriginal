@@ -905,6 +905,55 @@ Tab:AddTextbox({
  end   
 })
 
+Tab:AddToggle({
+ Name = "Lightweight players",
+ Default = false,
+ Callback = function(Value)
+ uyeihd = Value
+        while uyeihd and task.wait() do
+  for _, player in next, game.Players:GetPlayers() do
+    if player ~= game.Players.LocalPlayer and workspace:FindFirstChild(player.Name) then
+      for _, part in next, player.Character:GetDescendants() do
+        if part:IsA("BasePart") then
+          part.CustomPhysicalProperties = PhysicalProperties.new(0, 0, 1, math.huge, math.huge)
+          part.Material = "Air"
+        end
+      end
+    end
+  end
+end
+   end    
+})
+
+Tab:AddToggle({
+ Name = "Touch nearest parts to all players",
+ Default = false,
+ Callback = function(Value)
+ bubuska = Value
+        while bubuska and task.wait() do
+ if game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name) and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+  game.Players.LocalPlayer.SimulationRadius = math.huge
+  for _, part in next, workspace:GetPartBoundsInRadius(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, 40) do
+    if part:FindFirstChild("TouchInterest") then
+      for _, player in next, game.Players:GetPlayers() do
+         if player ~= game.Players.LocalPlayer and workspace:FindFirstChild(player.Name) then
+           for _, parte in next, player.Character:GetChildren() do
+             if parte:IsA("BasePart") then
+               task.spawn(function()
+                 firetouchinterest(part, parte, 0)
+                 firetouchinterest(parte, part, 0)
+               end)
+             end
+           end
+        end
+      end
+    end
+  end
+ end
+end
+   end    
+}) 
+
 local Section = Tab:AddSection({
  Name = "Parts Control"
 })
@@ -3821,6 +3870,13 @@ Tab:AddParagraph("Improved functions:", [[
 
 Tab:AddParagraph("Added functions:", [[
   Local Humanoid Control: Anti bang – if there is a player with bang animation next to you, then the function is launched
+]])
+
+Tab:AddLabel("02.04.2025")
+
+Tab:AddParagraph("Added functions", [[
+  Players Control: Lightweight players – Makes players very lightweight, useful in games like Fling things and peoples
+  Players Control: Touch nearest parts to all players – Touches all objects that have TouchInterest (part.Touched signal) to all players, can kill all in some places
 ]])
 
 local Tab = Window:MakeTab({
