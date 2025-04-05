@@ -1230,6 +1230,44 @@ end
    end    
 })
 
+getgenv().isnetworkowner = isnetworkowner or newcclosure(function(part)
+  return (part.ReceiveAge == 0 and gethiddenproperty(part, "NetworkIsSleeping") == false)
+end)
+
+Tab:AddToggle({
+ Name = "Anti part fling",
+ Default = false,
+ Callback = function(Value)
+  hueey = Value
+     while hueey and game:GetService("RunService").PreSimulation:Wait() do
+       if game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name) and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+         game.Players.LocalPlayer.SimulationRadius = math.huge
+         sethiddenproperty(game.Players.LocalPlayer, "MaxSimulationRadius", math.huge)
+         sethiddenproperty(game.Players.LocalPlayer, "MaximumSimulationRadius", math.huge)
+         
+         for _, part in next, workspace:GetPartBoundsInRadius(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, 50) do
+           if part.Anchored == false and not isnetworkowner(part) and part.Velocity.Magnitude >= 5 and not game.Players:GetPlayerFromCharacter(part.Parent) then
+              part.Velocity = Vector3.zero
+              part.AssemblyLinearVelocity = Vector3.zero
+              part.AssemblyAngularVelocity = Vector3.zero
+              part.CanCollide = isnetworkowner(part)
+              part.CanTouch = isnetworkowner(part)
+              part.CanQuery = isnetworkowner(part)
+              part.Massless = not isnetworkowner(part)
+              part:ResetPropertyToDefault("CustomPhysicalProperties")
+              
+             for _, mov in next, part:GetDescendants() do
+               if mov:IsA("BodyMover") or mov:IsA("Constraint") then
+                 mov:Destroy()
+               end
+             end
+           end
+         end
+       end
+     end
+   end    
+})
+
 Tab:AddDropdown({
 	Name = "Fling part tools (too by me)",
 	Default = "",
@@ -4079,6 +4117,7 @@ Tab:AddParagraph("Added functions:", [[
   Tools Control: Activate all tools – Instantly activates all tools (with variations)
   Tools Control: Grab tools – touch all objects that resemble an tool
   Parts Control: Part control tools – Manages parts by settings (with variations)
+  Parts Control: Anti part fling – Protects you from flinging from other scripts (only from scripts)
 ]])
 
 local Tab = Window:MakeTab({
