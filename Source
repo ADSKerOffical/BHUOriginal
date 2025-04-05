@@ -1499,6 +1499,111 @@ tool.Parent = game.Players.LocalPlayer.Backpack
 	end    
 })
 
+Tab:AddDropdown({
+	Name = "Part control tools",
+	Default = "",
+	Options = {"Part flinger", "Part mover", "Attach part", "Suction parts", "Reset parts"},
+	Callback = function(Value)
+	   if Value == "Part flinger" then
+local tool = Instance.new("Tool", game.Players.LocalPlayer.Backpack)
+tool.Name = "Part flinger"
+tool.RequiresHandle = false
+
+tool.Activated:Connect(function()
+ local part = game.Players.LocalPlayer:GetMouse().Target
+  if part and part.Anchored == false then
+    game.Players.LocalPlayer.SimulationRadius = math.huge
+    sethiddenproperty(game.Players.LocalPlayer, "MaxSimulationRadius", math.huge)
+    
+    part.Velocity = Vector3.new(1000, 1000, 1000)
+    part.AssemblyLinearVelocity = Vector3.new(1000, 1000, 1000)
+    part.AssemblyAngularVelocity = Vector3.new(1000, 1000, 1000)
+  end
+end)
+	   elseif Value == "Part mover" then
+local tool = Instance.new("Tool", game.Players.LocalPlayer.Backpack)
+tool.Name = "Part mover"
+tool.RequiresHandle = false
+
+tool.Activated:Connect(function()
+ local part = game.Players.LocalPlayer:GetMouse().Target
+  if part and part.Anchored == false then
+    game.Players.LocalPlayer.SimulationRadius = math.huge
+    sethiddenproperty(game.Players.LocalPlayer, "MaxSimulationRadius", math.huge)
+    
+    repeat task.wait()
+      part.AssemblyLinearVelocity = (game.Players.LocalPlayer:GetMouse().Hit.Position - part.Position).Unit * 400
+    until not part or tool.Parent ~= game.Players.LocalPlayer.Character
+  end
+end)
+         elseif Value == "Attach part" then
+local tool = Instance.new("Tool", game.Players.LocalPlayer.Backpack)
+tool.Name = "Attach part"
+tool.RequiresHandle = false
+
+tool.Activated:Connect(function()
+ local part = game.Players.LocalPlayer:GetMouse().Target
+  if part and part.Anchored == false then
+    game.Players.LocalPlayer.SimulationRadius = math.huge
+    sethiddenproperty(game.Players.LocalPlayer, "MaxSimulationRadius", math.huge)
+    
+    local bv = Instance.new("BodyVelocity", part)
+    bv.MaxForce = Vector3.new(math.huge, math.huge,  math.huge)
+    bv.Velocity = Vector3.zero
+    bv.P = math.huge
+  end
+end)
+     elseif Value == "Suction parts" then
+local tool = Instance.new("Tool", game.Players.LocalPlayer.Backpack)
+tool.Name = "Suction parts" 
+tool.RequiresHandle = false
+
+tool.Activated:Connect(function()
+  game.Players.LocalPlayer.SimulationRadius = math.huge
+  sethiddenproperty(game.Players.LocalPlayer, "MaxSimulationRadius", math.huge)
+  
+  for _, par in next, workspace:GetPartBoundsInRadius(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, 40) do
+    if par.Anchored == false and not par:IsDescendantOf(game.Players.LocalPlayer.Character) and not game.Players:GetPlayerFromCharacter(par.Parent) then
+      task.spawn(function()
+        repeat task.wait()
+          par.CanCollide = false
+          par.AssemblyLinearVelocity = (game.Players.LocalPlayer.Character.Head.Position + Vector3.new(0, 10 + par.Size.Y, 0) - par.Position).Unit * 350
+          par.AssemblyAngularVelocity = Vector3.new(100, 100, 100)
+        until not par or tool.Parent ~= game.Players.LocalPlayer.Character
+      end)
+    end
+  end
+end)
+    elseif Value == "Reset parts" then
+local tool = Instance.new("Tool", game.Players.LocalPlayer.Backpack)
+tool.Name = "Reset parts"
+tool.RequiresHandle = false
+
+tool.Activated:Connect(function()
+    game.Players.LocalPlayer.SimulationRadius = math.huge
+    sethiddenproperty(game.Players.LocalPlayer, "MaxSimulationRadius", math.huge)
+    
+  for _, part in next, workspace:GetPartBoundsInRadius(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, 90) do
+    if part.Anchored == false and not part:IsDescendantOf(game.Players.LocalPlayer.Character) and not game.Players:GetPlayerFromCharacter(part.Parent) then
+    
+      for _, prop in next, game:GetService("ReflectionService"):GetPropertyNames(part.ClassName) do
+        if not table.find({"Color", "Parent", "Size", "Material", "MaterialVariant", "Position", "BrickColor", "CFrame", "CollisionGroup", "Rotation", "Transparency", "LocalTransparencyModifer", "MeshId", "TextureId", "TextureID", "Style"}, prop) then
+          part:ResetPropertyToDefault(tostring(prop))
+        end
+      end
+      
+      for _, obj in next, part:GetDescendants() do
+        if obj:IsA("BodyMover") or obj:IsA("Constraint") then
+          obj:Destroy()
+        end
+      end
+    end
+  end
+end)
+	   end
+	end    
+})
+
 Tab:AddToggle({
  Name = "Xray",
  Default = false,
@@ -3973,6 +4078,7 @@ Tab:AddParagraph("Added functions:", [[
   Tools Control: Remove tools – Removes all tools in and on the player inventory
   Tools Control: Activate all tools – Instantly activates all tools (with variations)
   Tools Control: Grab tools – touch all objects that resemble an tool
+  Parts Control: Part control tools – Manages parts by settings (with variations)
 ]])
 
 local Tab = Window:MakeTab({
