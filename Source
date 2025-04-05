@@ -249,6 +249,78 @@ part.Size = Vector3.new(val, val, val)
 })
 
 Tab:AddButton({
+	Name = "Remove tools",
+	Callback = function()
+	if table.merger == nil then
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/BHU/refs/heads/main/Table%20library%20expanding"))()
+    end
+for _, tool in next, table.merger(game.Players.LocalPlayer.Character:GetDescendants(), game.Players.LocalPlayer.Backpack:GetDescendants()) do
+  if tool:IsA("Tool") then
+    tool:Destroy()
+  end
+end
+    end    
+})
+
+Tab:AddToggle({
+ Name = "Grab tools",
+ Default = false,
+ Callback = function(Value)
+  ygs = Value
+     while ygs and task.wait() do
+       for _, tool in next, workspace:GetDescendants() do
+         if tool:IsA("BasePart") and tool.Name == "Handle" and tool.Parent:IsA("Model") and tool:FindFirstChild("TouchInterest") and not tool:IsDescendantOf(game.Players.LocalPlayer.Character) and not game.Players:GetPlayerFromCharacter(tool.Parent) then
+           firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, tool, 0)
+         end
+       end
+     end
+   end    
+})
+
+Tab:AddDropdown({
+	Name = "Activate all tools",
+	Default = "",
+	Options = {"and unequip tools", "and not unequip tools", "in the form of a tool"},
+	Callback = function(Value)
+	  if Value == "and unequip tools" then
+if table.merger == nil then loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/BHU/refs/heads/main/Table%20library%20expanding"))() end
+for _, tool in next, table.merger(game.Players.LocalPlayer.Character:GetDescendants(), game.Players.LocalPlayer.Backpack:GetDescendants()) do
+  if tool:IsA("Tool") or tool:IsA("HopperBin") then
+    game.Players.LocalPlayer.Character.Humanoid:EquipTool(tool)
+    tool:Activate()
+    game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+  end
+end
+	  elseif Value == "and not unequip tools" then
+if table.merger == nil then loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/BHU/refs/heads/main/Table%20library%20expanding"))() end
+for _, tool in next, table.merger(game.Players.LocalPlayer.Character:GetDescendants(), game.Players.LocalPlayer.Backpack:GetDescendants()) do
+  if tool:IsA("Tool") or tool:IsA("HopperBin") then
+    tool.Parent = game.Players.LocalPlayer.Character
+    tool:Activate()
+  end
+end
+	  elseif Value == "in the form of a tool" then
+local tool = Instance.new("Tool", game.Players.LocalPlayer.Backpack)
+tool.Name = "Activate all tools"
+tool.RequiresHandle = false
+
+tool.Activated:Connect(function()
+ if table.merger == nil then
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/BHU/refs/heads/main/Table%20library%20expanding"))()
+ end
+for _, toool in next, table.merger(game.Players.LocalPlayer.Character:GetDescendants(), game.Players.LocalPlayer.Backpack:GetDescendants()) do
+  if toool:IsA("Tool") or toool:IsA("HopperBin") and toool ~= tool then
+    game.Players.LocalPlayer.Character.Humanoid:EquipTool(toool)
+    toool:Activate()
+    game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+  end
+end
+end)
+	  end
+	end    
+})
+
+Tab:AddButton({
  Name = "Disable tool handle collision",
  Callback = function()
 for _, tool in ipairs(LP.Character:GetDescendants()) do
@@ -387,6 +459,17 @@ LPH.RootPart.CFrame = player.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0
 until LPH.Health <= 0
    end
  end   
+})
+
+Tab:AddButton({
+ Name = "Bunny hop",
+ Callback = function()
+        game.Players.LocalPlayer.Character.Humanoid.Jumping:Connect(function()
+ if game.Players.LocalPlayer.Character.HumanoidRootPart.Running.IsPlaying then
+  game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity += game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity.Unit * 100
+ end
+end)
+   end    
 })
 
 Tab:AddToggle({
@@ -3874,9 +3957,22 @@ Tab:AddParagraph("Added functions:", [[
 
 Tab:AddLabel("02.04.2025")
 
-Tab:AddParagraph("Added functions", [[
+Tab:AddParagraph("Added functions:", [[
   Players Control: Lightweight players – Makes players very lightweight, useful in games like Fling things and peoples
   Players Control: Touch nearest parts to all players – Touches all objects that have TouchInterest (part.Touched signal) to all players, can kill all in some places
+]])
+
+Tab:AddLabel("05.04.2025")
+
+Tab:AddParagraph("Game support:", [[
+  Added support for games on Fling things and peoples and Furry infection
+]])
+
+Tab:AddParagraph("Added functions:", [[
+  Local Humanoid Control: Bunny hop – when you jump and walk, you make a dash to where you go (turns off after player dies)
+  Tools Control: Remove tools – Removes all tools in and on the player inventory
+  Tools Control: Activate all tools – Instantly activates all tools (with variations)
+  Tools Control: Grab tools – touch all objects that resemble an tool
 ]])
 
 local Tab = Window:MakeTab({
