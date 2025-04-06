@@ -1024,7 +1024,7 @@ Tab:AddToggle({
              if parte:IsA("BasePart") then
                task.spawn(function()
                  firetouchinterest(part, parte, 0)
-                 firetouchinterest(parte, part, 0)
+                 firetouchinterest(part, parte, 1)
                end)
              end
            end
