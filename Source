@@ -2043,6 +2043,35 @@ while oij and task.wait() do
    end    
 })
 
+Tab:AddToggle({
+ Name = "Touch nearest parts to all npcs",
+ Default = false,
+ Callback = function(Value)
+        bubusraka = Value
+while bubusraka and task.wait() do
+ if game.Players.LocalPlayer.Character ~= nil and game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") then
+  game.Players.LocalPlayer.SimulationRadius = math.huge
+   for _, part in next, workspace:GetPartBoundsInRadius(game.Players.LocalPlayer.Character.HumanoidRootPart.Position, 40) do
+     if part:FindFirstChild("TouchInterest") then
+       for _, model in next, workspace:GetChildren() do
+          if model:IsA("Model") and not game.Players:GetPlayerFromCharacter(model) and model:FindFirstChildOfClass("Humanoid") then
+            for _, parte in next, model:GetChildren() do
+              if parte:IsA("BasePart") then
+                task.spawn(function()
+                  firetouchinterest(part, parte, 0)
+                  firetouchinterest(part, parte, 1)
+                end)
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+end
+   end    
+})
+
 local Section = Tab:AddSection({
  Name = "Chat Control"
 })
