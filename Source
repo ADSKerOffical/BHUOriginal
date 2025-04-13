@@ -3997,6 +3997,17 @@ Tab:AddButton({
    end    
 })
 
+local Section = Tab:AddSection({
+ Name = "Helper scripts"
+})
+
+Tab:AddButton({
+ Name = "Texture Provider",
+ Callback = function()
+       loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/BHU/refs/heads/main/Special/TextureProvider"))()
+   end    
+})
+
 Tab:AddButton({
  Name = "Tool gun (finder gun)",
  Callback = function()
