@@ -33,7 +33,25 @@ return game:GetService(tostring(prop)) end
  end
 end
 
-local Window = OrionLib:MakeWindow({Name = "Budgie Hub | Universal", HidePremium = true, IntroEnabled = false, SaveConfig = false, ConfigFolder = "OrionTest"})
+local month = os.date("%B")
+local day = os.date("%d")
+local Budgietext = "Budgie Hub | Universal"
+
+if month == "February" and day == "14" then
+ Budgietext = Budgietext .. "♥️"
+  elseif month == "October" and day == "31" then
+ Budgietext = Budgietext .. "🎃"
+  elseif month == "January" and day == "1" then
+ Budgietext = Budgietext .. "🎄"
+  elseif month == "July" and day == "25" then
+ Budgietext = Budgietext .. "🎉"
+  elseif month == "April" and day == "20" then
+ Budgietext = Budgietext .. "🥚"
+  elseif month == "May" and day == "31" then
+ Budgietext = Budgietext .. "🦜"
+end
+
+local Window = OrionLib:MakeWindow({Name = Budgietext, HidePremium = true, IntroEnabled = false, SaveConfig = false, ConfigFolder = "OrionTest"})
 
 local Tab1 = Window:MakeTab({
  Name = "Info",
