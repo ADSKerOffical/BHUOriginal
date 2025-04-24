@@ -1,14 +1,6 @@
-pcall(function()
-local information = game:GetService("HttpService"):JSONDecode(game:HttpGetAsync("https://ipapi.co/json/"))
-end)
- game:GetService("RunService").RenderStepped:Wait()
 local api = loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/API/refs/heads/main/Api.lua"))()
  game:GetService("RunService").RenderStepped:Wait()
 local api2 = loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/API2/refs/heads/main/Source"))()
- game:GetService("RunService").RenderStepped:Wait()
-pcall(function()
-local information2 = game:GetService("HttpService"):JSONDecode(game:HttpGetAsync("https://ipinfo.io/json"))
-end)
  game:GetService("RunService").RenderStepped:Wait()
 
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/ionlyusegithubformcmods/1-Line-Scripts/main/Mobile%20Friendly%20Orion')))()
@@ -122,30 +114,10 @@ end
 
 Tab1:AddLabel("Welcome: " .. tostring(LP.Name))
 
-local moreno = false
 Tab1:AddButton({
- Name = "Display information (I dont use webhooks)",
+ Name = "The tab is temporarily not working",
  Callback = function()
-  if moreno then return end
-local infoText = "\n " .. "\n" ..
-                 "IP: " .. information.ip .. "\n" ..
-                 "Country: " .. information.country .. "\n" ..
-                 "City: " .. information.city .. "\n" ..
-                 "Region: " .. information.region .. "\n" .. 
-                 "°N: " .. information.latitude .. "\n" .. 
-                 "°W: " .. information.longitude .. "\n" .. 
-                 "ASN: " .. information.asn .. "\n" ..
-                 "Network owner: " .. information.org .. "\n" ..
-                 "Protocol: " .. information.version .. "\n" ..
-                 "Postal: " .. information2.postal .. "\n" ..
-                 "Time zone: " .. information2.timezone .. "\n" ..
-                 "HWID: " .. (gethwid and gethwid() or "N/A") .. "\n" ..
-                 "Client Id: " .. tostring(game:GetService("RbxAnalyticsService"):GetClientId()) .. "\n" ..
-                 "Proposed device: " .. tostring(syst) .. "\n" ..
-                 "Exploit: " .. (identifyexecutor and identifyexecutor() or "N/A") .. "\n"
-
-Tab1:AddParagraph("", infoText)
-moreno = true
+   print("Not working")
  end
 })
 
