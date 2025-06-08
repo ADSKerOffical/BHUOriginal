@@ -1,0 +1,79 @@
+local SBF = Instance.new("ScreenGui", (gethui and gethui()) or game:GetService("CoreGui"))
+SBF.ResetOnSpawn = false
+SBF.IgnoreGuiInset = true
+SBF:SetAttribute("CanMakeTp", true)
+
+local Frame = Instance.new("Frame", SBF)
+Frame.Active = true
+Frame.Draggable = true
+Frame.BorderSizePixel = 0
+Frame.Size = UDim2.new(0, 250, 0, 250)
+Frame.BackgroundTransparency = 0.1
+Frame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+Frame.Position = UDim2.new(0.35, 0, 0.2, 0)
+
+local Title = Instance.new("TextLabel", Frame)
+Title.Size = UDim2.new(0, 150, 0, 30)
+Title.Position = UDim2.new(0, 50, 0, -5)
+Title.Text = "Subplace finder by ADSKer"
+Title.TextColor3 = Color3.new(1, 1, 1)
+Title.BackgroundTransparency = 1
+
+local List = Instance.new("ScrollingFrame", Frame)
+List.Size = UDim2.new(0, 200, 0, 200)
+List.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1)
+List.ScrollBarThickness = 5
+List.Position = UDim2.new(0, 23, 0, 21)
+List.BorderSizePixel = 0
+List.BackgroundTransparency = 0.1
+
+local Layout = Instance.new("UIGridLayout", List)
+Layout.SortOrder = Enum.SortOrder.LayoutOrder
+Layout.CellSize = UDim2.new(0, 200, 0, 20)
+Layout.CellPadding = UDim2.new(0, 5, 0, 5)
+
+Layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+  List.CanvasSize = UDim2.new(0, 0, 0, Layout.AbsoluteContentSize.Y)
+end)
+
+local places = game:GetService("AssetService"):GetGamePlacesAsync()
+
+while true do
+  for _, place in next, places:GetCurrentPage() do
+    local Button = Instance.new("TextButton", List)
+    Button.Text = place.Name .. ": " .. place.PlaceId
+    Button.BackgroundColor3 = List.BackgroundColor3
+    Button.TextColor3 = Color3.new(1, 1, 1)
+    Button.TextScaled = true
+    Button.Position = UDim2.new(0.5, 0, 0.5, 0)
+    Button.AnchorPoint = Vector2.new(0.5, 0.5)
+    Button.TextXAlignment = Enum.TextXAlignment.Center
+    Button.Size = UDim2.new(0, 10, 0, 10)
+    Button.BorderSizePixel = 0
+    
+    Button.Activated:Connect(function()
+      if SBF:GetAttribute("CanMakeTp") == true then
+        SBF:SetAttribute("CanMakeTp", false)
+        game:GetService("TeleportService"):Teleport(place.PlaceId)
+        
+        local hint = Instance.new("Hint", game.Workspace)
+        hint.Text = "Teleporting..."
+        game.Debris:AddItem(hint, 60)
+        
+        local sta = game.Players.LocalPlayer.OnTeleport:Connect(function(state)
+          if state == Enum.TeleportState.Failed then
+            hint.Text = "Failed to teleport to place"
+            task.delay(2.5, function() SBF:SetAttribute("CanMakeTp", true) game.Debris:AddItem(hint, task.wait()) end)
+            sta:Disconnect()
+          end
+        end)
+      end
+    end)
+  end
+
+  if places.IsFinished then
+   break
+ end
+
+  places:AdvanceToNextPageAsync()
+end
