@@ -4060,6 +4060,20 @@ local hook2; hook2 = hookfunction(request, newcclosure(function(result)
   end
 end))
 
+Tab:AddButton({
+ Name = "Subplace finder",
+ Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/BHUOriginal/refs/heads/main/Guis/SubplaceFinder"))()
+   end    
+})
+
+Tab:AddButton({
+ Name = "Audio logger v2",
+ Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/BHUOriginal/refs/heads/main/Guis/AudioLoggerV2"))()
+   end    
+})
+
 local Tab = Window:MakeTab({
 	Name = "Note",
 	Icon = "rbxassetid://4483345998",
