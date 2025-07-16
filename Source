@@ -4029,37 +4029,6 @@ OrionLib:MakeNotification({
    end    
 })
 
-local httpspyen = false
-Tab:AddToggle({
- Name = "Http spy",
- Default = false,
- Callback = function(Value)
-     httpspyen = Value
-   end    
-})
-
-local hookedtable = {}
-local hook; hook = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
- if self == game and table.find({"HttpGet", "HttpGetAsync"}, getnamecallmethod()) and not table.find(hookedtable, (...)) and httpspyen == true then
-   print((...))
-   table.insert(hookedtable, (...))
-OrionLib:MakeNotification({
- Name = "Budgie Hub",
- Content = "Has been hooked link. Link has been sended into console (duplicate links will be ignored)",
- Image = "rbxassetid://4483345998",
- Time = 5
-})
- end
-  return hook(self, ...)
-end))
-
-local hook2; hook2 = hookfunction(request, newcclosure(function(result)
-  if not table.find(hookedtable, result.Url) and httpspyen == true then
-    print(result.Url)
-    table.insert(hookedtable, result.Url)
-  end
-end))
-
 Tab:AddButton({
  Name = "Subplace finder",
  Callback = function()
