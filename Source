@@ -59,7 +59,7 @@ local UIS = game:GetService("UserInputService")
     elseif (UIS.TouchEnabled and not UIS.MouseEnabled) then
         syst = "Mobile"
     else
-        return "PC"
+        syst = "PC"
     end
 
 local LP = game:GetService("Players").LocalPlayer
