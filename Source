@@ -1030,6 +1030,26 @@ end
    end    
 }) 
 
+Tab:AddToggle({
+ Name = "Cbring all",
+ Default = false,
+ Callback = function(Value)
+oep = Value
+ while oep and task.wait() do
+   for _, player in next, game.Players:GetPlayers() do
+     if player ~= game.Players.LocalPlayer and game.Workspace:FindFirstChild(player.Name) and player.Character:FindFirstChild("Humanoid") and game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name) then
+       player.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart", 10).CFrame * CFrame.new(0, 0, -3.25)
+       for _, part in next, player.Character:GetDescendants() do
+         if part:IsA("BasePart") then
+           part.CanCollide = false
+         end
+       end
+     end
+   end
+ end
+   end    
+})
+
 local Section = Tab:AddSection({
  Name = "Parts Control"
 })
