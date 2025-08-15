@@ -217,6 +217,24 @@ end
    end    
 })
 
+Tab:AddToggle({
+ Name = "Enable tools",
+ Default = false,
+ Callback = function(Value)
+   oroi = Value
+     while oroi and task.wait() do
+       local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+       for _, tool in next, char:GetChildren() do
+         if tool:IsA("Tool") then
+           tool.Enabled = true
+           tool.ManualActivationOnly = false
+           tool.RequiresHandle = false
+         end
+       end
+     end
+   end    
+})
+
 Tab:AddTextbox({
  Name = "Reach tools on character",
  Default = "",
@@ -391,12 +409,41 @@ local tool = LP.Character and LP.Character:FindFirstChildOfClass("Tool")
             if tool and tool:FindFirstChild("Handle") then
                 tool:Activate()
                 for i, v in next, workspace:GetDescendants() do
-                    if v:IsA("Humanoid") and not game:GetService("Players"):GetPlayerFromCharacter(v) then
+                    if v:IsA("Humanoid") and not game:GetService("Players"):GetPlayerFromCharacter(v.Parent) then
                        for i, d in next, v.Parent:GetChildren() do
                          if d:IsA("BasePart") then
                            firetouchinterest(tool.Handle, d, 0)
                            firetouchinterest(tool.Handle, d, 1)
                         end
+                    end
+                 end
+             end
+         end
+     end
+ end    
+})
+
+Tab:AddToggle({
+ Name = "Touch models with your handle v2",
+ Default = false,
+ Callback = function(Value)
+ooj = Value
+while ooj and game:GetService("RunService").RenderStepped:Wait() do
+    local LP = game:GetService("Players").LocalPlayer
+local tool = LP.Character and LP.Character:FindFirstChildOfClass("Tool")
+            if tool then
+                tool:Activate()
+                for i, v in next, workspace:GetDescendants() do
+                    if v:IsA("Humanoid") and not game:GetService("Players"):GetPlayerFromCharacter(v.Parent) then
+                       for i, d in next, v.Parent:GetDescendants() do
+                         if d:IsA("BasePart") then
+                           for _, part in next, tool:GetDescendants() do
+                             if part:IsA("BasePart") then
+                              firetouchinterest(part, d, 0)
+                              firetouchinterest(part, d, 1)
+                            end
+                          end
+                       end
                     end
                  end
              end
@@ -2301,7 +2348,9 @@ Tab:AddToggle({
  Name = "Disable animate",
  Default = false,
  Callback = function(Value)
+     pcall(function()
         game.Players.LocalPlayer.Character.Animate.Disabled = Value
+     end)
    end    
 })
 
