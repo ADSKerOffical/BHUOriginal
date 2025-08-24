@@ -4056,6 +4056,43 @@ Tab:AddButton({
    end    
 })
 
+Tab:AddButton({
+ Name = "Print tool information",
+ Callback = function()
+      local tool = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool")
+      
+      print("--- Value Bases ---")
+      
+      for _, val in next, tool:GetDescendants() do
+        if val:IsA("ValueBase") then
+          print(val.ClassName, val:GetFullName(), val.Value)
+        end
+      end
+      print("--- Attributes ---")
+      for atname, atval in next, tool:GetAttributes() do
+        print(tool:GetFullName(), atname, atval)
+      end
+      for _, obj in next, tool:GetDescendants() do
+        for atname, atval in next, obj:GetAttributes() do
+          print(obj:GetFullName(), atname, atval)
+        end
+      end
+      
+      print("--- Upvalues, Constants and Protos ---")
+for _, con in next, getconnections(tool.Activated) do
+  for i, d in next, debug.getconstants(con.Function) do
+    print("constant:", i, d)
+  end
+  for i, u in next, debug.getupvalues(con.Function) do
+    print("upvalue:", i, u)
+  end
+  for i, p in next, debug.getprotos(con.Function) do
+    print("proto:", i, p, debug.getinfo(p).name)
+  end
+end
+   end    
+})
+
 local Section = Tab:AddSection({
  Name = "Helper scripts"
 })
