@@ -4093,6 +4093,54 @@ end
    end    
 })
 
+Tab:AddButton({
+ Name = "Print tool information+",
+ Callback = function()
+      local tool = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool")
+        print(`Tool Name: {tool.Name},\nTool Is Enabled: {tool.Enabled}`)
+        
+      print("--- Value Bases ---")
+      
+      for _, val in next, tool:GetDescendants() do
+        if val:IsA("ValueBase") then
+          print(val.ClassName, val:GetFullName(), val.Value)
+        end
+      end
+      print("--- Attributes ---")
+      for atname, atval in next, tool:GetAttributes() do
+        print(tool:GetFullName(), atname, atval)
+      end
+      for _, obj in next, tool:GetDescendants() do
+        for atname, atval in next, obj:GetAttributes() do
+          print(obj:GetFullName(), atname, atval)
+        end
+      end
+      
+      print("--- Upvalues, Constants and Protos ---")
+for _, signa in next, {"Activated", "Equipped"} do
+  print(`    --- Signal {signa} ---`)
+for _, con in next, getconnections(tool[signa]) do
+  for i, d in next, debug.getconstants(con.Function) do
+    print("constant:", i, d)
+  end
+  for i, u in next, debug.getupvalues(con.Function) do
+    print("upvalue:", i, u)
+    if typeof(u) == "table" then
+      for e, r in next, u do
+        print(e, r)
+      end
+     elseif typeof(u) == "function" then
+       print("Function Name: " .. debug.getinfo(u).name)
+    end
+  end
+  for i, p in next, debug.getprotos(con.Function) do
+    print("proto:", i, p, debug.getinfo(p).name)
+  end
+end
+end
+   end    
+})
+
 local Section = Tab:AddSection({
  Name = "Helper scripts"
 })
