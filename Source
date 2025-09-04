@@ -276,12 +276,30 @@ Tab:AddToggle({
  Callback = function(Value)
   ygs = Value
      while ygs and task.wait() do
-       for _, tool in next, workspace:GetDescendants() do
-         if tool:IsA("BasePart") and tool.Name == "Handle" and tool.Parent:IsA("Model") and tool:FindFirstChild("TouchInterest") and not tool:IsDescendantOf(game.Players.LocalPlayer.Character) and not game.Players:GetPlayerFromCharacter(tool.Parent) then
-           firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, tool, 0)
-         end
-       end
+       for _, tool in next, game.Workspace:GetDescendants() do
+  if tool:IsA("Tool") and tool:FindFirstChildWhichIsA("BasePart") then
+    firetouchinterest(game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart"), tool:FindFirstChildWhichIsA("BasePart"), 0)
+  end
+end
      end
+   end    
+})
+
+Tab:AddButton({
+ Name = "Copy all tools from ReplicatedStorage",
+ Callback = function()
+    for _, tool in next, game.ReplicatedStorage:GetDescendants() do
+  if tool:IsA("Tool") then
+    local tok = tool:Clone()
+    tok.Parent = game.Players.LocalPlayer.Backpack
+
+    for _, con in next, getconnections(tok.Activated) do
+      if rawget(con, "Function") then
+        tok.Activated:Connect(con.Function)
+      end
+    end
+  end
+end
    end    
 })
 
