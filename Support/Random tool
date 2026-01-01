@@ -373,6 +373,49 @@ end)
     end
 })
 
+Tabs.Attack:AddButton({
+    Title = "Mega punch tool",
+    Description = "Oneshot any living thing",
+    Callback = function()
+        local tool = Instance.new("Tool", game.Players.LocalPlayer.Backpack)
+tool.Name = "Mega punch"
+tool.RequiresHandle = false
+
+tool.Activated:Connect(function()
+  local anim = Instance.new("Animation")
+  anim.AnimationId = "rbxassetid://100404743190802"
+  local loads = tool.Parent.Humanoid:LoadAnimation(anim)
+  loads:Play()
+  loads:AdjustWeight(math.huge)
+  
+  local humanoids = {}
+for _, part in next, workspace:GetPartBoundsInRadius(tool.Parent.HumanoidRootPart.Position, 12) do
+    if part.Parent:IsA("Model") and part.Parent:FindFirstChildOfClass("Humanoid") and not part:IsDescendantOf(game.Players.LocalPlayer.Character) then
+      if not table.find(humanoids, part.Parent:FindFirstChildOfClass("Humanoid")) then
+        table.insert(humanoids, part.Parent:FindFirstChildOfClass("Humanoid"))
+      end
+    end
+  end
+
+  for _, humanoid in next, humanoids do
+    for _, plr in next, game.Players:GetPlayers() do
+  for _, tool in plr.Character:GetChildren() do
+     if tool:IsA("Tool") and tool:FindFirstChild("damage") then
+      for _ = 1, 50 do coroutine.wrap(function() tool.damage:InvokeServer(humanoid) end)() end
+    end
+  end
+
+  for _, tool in plr.Backpack:GetChildren() do
+    if tool:IsA("Tool") and tool:FindFirstChild("damage") then
+      for _ = 1, 50 do coroutine.wrap(function() tool.damage:InvokeServer(humanoid) end)() end
+    end
+  end
+end
+  end
+end)
+    end
+})
+
 
 
 Tabs.Defense:AddToggle("Defense", {
@@ -418,6 +461,32 @@ if suc then
   Workspace.Main.Islands.Island1.car.car:Destroy()
   else
   error("Car already has been deleted", 0)
+end
+    end 
+})
+
+Tabs.Defense:AddToggle("Godmode", {
+    Title = "Godmode", 
+    Description = "At least one player must have yello phone",
+    Default = false,
+    Callback = function(Value)
+     jej = Value
+	  while jej and task.wait() do
+	    pcall(function()
+ for _, plr in game.Players:GetPlayers() do
+    for _, tool in (plr.Character or plr.CharacterAdded:Wait()):GetDescendants() do
+      if tool:IsA("Tool") and tool.Name == "yello phone" then
+        tool.ApplyBuff:FireServer("Heal")
+      end
+    end
+    
+    for _, tool in plr.Backpack:GetDescendants() do
+      if tool:IsA("Tool") and tool.Name == "yello phone" then
+        tool.ApplyBuff:FireServer("Heal")
+      end
+    end
+  end
+  end)
 end
     end 
 })
@@ -471,3 +540,79 @@ Tabs.Teleport:AddButton({
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(763, 8, 263)
     end
 })
+
+do
+  if not workspace:FindFirstChild("Madness sphere") then
+local madness = Instance.new("Part", workspace)
+madness.Anchored = true
+madness.Name = "Madness sphere"
+madness.Size = Vector3.new(2, 2, 2)
+madness.Color = Color3.new(1, 0, 0)
+madness.Shape = "Ball"
+madness.Material = "Neon"
+madness.Position = Vector3.new(538, 6, -552)
+
+for _, side in Enum.NormalId:GetEnumItems() do
+  local decal = Instance.new("Decal", madness)
+  decal.Texture = "rbxassetid://10532241402"
+  decal.Face = side
+end
+
+local ambient = Instance.new("Sound", madness)
+ambient.SoundId = "rbxassetid://78050074366725"
+ambient.Looped = true
+ambient:Play()
+
+local particle = Instance.new("ParticleEmitter", madness)
+particle.Texture = "rbxassetid://115034218145529"
+particle.Speed = NumberRange.new(0, 0)
+particle.Rate = 15
+particle.Size = NumberSequence.new(1.5, 0)
+particle.Lifetime = NumberRange.new(0.25, 0.25)
+
+local col2 = Instance.new("ColorCorrectionEffect", game.Lighting)
+col2.Enabled = false
+col2.Saturation = 100
+col2.TintColor = Color3.new(1, 0, 0)
+
+pcall(function() game.Lighting:FindFirstChildOfClass("Sky"):Destroy() end)
+local sky = Instance.new("Sky")
+sky.CelestialBodiesShown = false
+sky.SkyboxBk = "rbxassetid://98837168684167"
+sky.SkyboxDn = "rbxassetid://98837168684167"
+sky.SkyboxFt = "rbxassetid://98837168684167"
+sky.SkyboxLf = "rbxassetid://98837168684167"
+sky.SkyboxRt = "rbxassetid://98837168684167"
+sky.SkyboxUp = "rbxassetid://98837168684167"
+
+local ambient = Instance.new("Sound", workspace)
+ambient.SoundId = "rbxassetid://9116732970"
+ambient.Looped = true
+
+local baseplate = Instance.new("Part", workspace)
+baseplate.Name = "THERE IS NO SALVATION" 
+baseplate.Anchored = true
+baseplate.Color = Color3.new(1, 1, 1)
+baseplate.Size = Vector3.new(2048, 2, 2048)
+baseplate.Position = Vector3.new(0, 10000, 0)
+
+coroutine.wrap(function()
+  while task.wait() do
+    local hrp = (game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()):FindFirstChild("HumanoidRootPart")
+    if hrp then
+      baseplate.Position = Vector3.new(hrp.CFrame.X, 10000, hrp.CFrame.Z)
+    end
+  end
+end)()
+
+    madness.Touched:Connect(function(hit)
+      if hit:IsDescendantOf(game.Players.LocalPlayer.Character) then
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = baseplate.CFrame * CFrame.new(0, 3, 0)
+        pcall(function() game.CoreGui.RobloxGui.Enabled = false end)
+        col2.Enabled = true
+        sky.Parent = game.Lighting
+        ambient.Playing = true 
+      end
+    end)
+  end
+end
