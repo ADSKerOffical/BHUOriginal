@@ -23,7 +23,7 @@ title.BorderColor3 = Color3.new(1, 1, 1)
 
 local close = Instance.new("TextButton", title)
 close.Size = UDim2.new(0.2, 0, 1, 0)
-close.Position = UDim2.new(1, 0, 0, 0)
+close.Position = UDim2.new(0.8, 0, 0, 0)
 close.TextColor3 = Color3.new(1, 1, 1)
 close.BackgroundColor3 = Color3.new(1, 0, 0)
 close.BorderSizePixel = 0
@@ -50,7 +50,7 @@ text.Text = [[Hello dear user. I'm sorry that the script doesn't work because th
 4) I add search textbox in Main tab and scroll buttons (they are disabled by default)
 5) In creator tab i add "Feedback" so you can tell me about bugs or shortcomings of the hub, but you can send one request every 10 minutes
 
-And much more. Execute Budgie Hub Universal 2?
+Execute Budgie Hub Universal 2?
 ]]
 
 text.Size = UDim2.new(1, 0, 1, 0)
@@ -85,5 +85,5 @@ noB.TextColor3 = Color3.new(1, 1, 1)
 
 noB.MouseButton1Click:Connect(function()
    gui:Destroy()
-   loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/ADSKerOffical/BHUOriginal/refs/heads/main/Source2.luau"))()
+   loadstring(game:HttpGetAsync("https://github.com/ADSKerOffical/BHUOriginal/blob/main/Source2.luau"))()
 end)
